@@ -3,13 +3,13 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include "example.h"
+#include "game.h"
 
 int main(int argc, char* args[])
 {
-	std::cout << "insert unique template text" << std::endl;
+	Game game;
+	
+	game.mainLoop();
 
-	int x = hello();
-
-	return x;
+	return game.getExitStatus();
 }

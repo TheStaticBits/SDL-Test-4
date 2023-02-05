@@ -12,11 +12,16 @@ public:
 	Window(const nlohmann::json& constants);
 	~Window();
 
+	void update();
+	void events();
+
+	const bool isClosed() const { return quit; }
+
 private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
 	Vect<uint32_t> winSize;
-
-	uint
+	
+	bool quit;
 };

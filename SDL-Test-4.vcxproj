@@ -203,13 +203,11 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\example.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\example.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\vect.h" />
     <ClInclude Include="include\window.h" />
