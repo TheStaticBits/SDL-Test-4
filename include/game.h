@@ -15,6 +15,7 @@ public:
 	Game();
 	~Game();
 
+	void iteration();
 	void mainLoop();
 
 	const int getExitStatus() const { return exitStatus; }

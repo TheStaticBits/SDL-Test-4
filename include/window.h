@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include <vector>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <nlohmann/json.hpp>
@@ -14,6 +17,9 @@ public:
 
 	void update();
 	void events();
+
+	// Rendering
+	void drawRect(const Vect<int32_t> pos, const Vect<int32_t> size, const std::vector<uint8_t> color);
 
 	const bool isClosed() const { return quit; }
 
