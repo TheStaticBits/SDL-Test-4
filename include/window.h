@@ -13,6 +13,7 @@ class Window
 {
 public:
 	Window(const nlohmann::json& constants);
+	Window();
 	~Window();
 
 	void update();
@@ -22,6 +23,9 @@ public:
 	void drawRect(const Vect<int32_t> pos, const Vect<int32_t> size, const std::vector<uint8_t> color);
 
 	const bool isClosed() const { return quit; }
+	
+	// Get inputs
+	const Vect<int> getMousePos() const { return mousePos; }
 
 private:
 	SDL_Window* window;
@@ -30,4 +34,6 @@ private:
 	Vect<uint32_t> winSize;
 	
 	bool quit;
+
+	Vect<int> mousePos;
 };

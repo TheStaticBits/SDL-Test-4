@@ -2,6 +2,7 @@
 	"display": {
 		"title": "SDL-Test-4",
 		"size": [ 400, 400 ],
-		"scale": 2
+		"scale": 2,
+		"vsync": true
 	}
 }

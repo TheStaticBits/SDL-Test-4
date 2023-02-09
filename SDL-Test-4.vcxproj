@@ -112,11 +112,13 @@
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\intermediates\</IntDir>
     <IncludePath>$(SysRoot)\include\c++\v1;$(SysRoot)\include\compat\;$(SysRoot)\include;$(SolutionDir)include</IncludePath>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\intermediates\</IntDir>
     <IncludePath>$(SysRoot)\include\c++\v1;$(SysRoot)\include\compat\;$(SysRoot)\include;$(SolutionDir)include</IncludePath>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -193,13 +195,14 @@
     <Link>
       <AdditionalLinkDirectories>
       </AdditionalLinkDirectories>
-      <AdditionalOptions>-sUSE_SDL=2 -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sSDL2_IMAGE_FORMATS=["png"] -sASYNCIFY=1 --preload-file data %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-sUSE_SDL=2 -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sSDL2_IMAGE_FORMATS=["png"] -sASYNCIFY=1 --embed-file data %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <Link>
       <AdditionalLinkDirectories>
       </AdditionalLinkDirectories>
+      <AdditionalOptions>-sUSE_SDL=2 -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sSDL2_IMAGE_FORMATS=["png"] -sASYNCIFY=1 --embed-file data %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)include;C:\vcpkg\installed\x86-windows\include</AdditionalIncludeDirectories>

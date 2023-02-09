@@ -10,7 +10,7 @@
 Window::Window(const nlohmann::json& constants)
 	: window(NULL), renderer(NULL), 
 	  winSize(constants["display"]["size"]),
-	  quit(false)
+	  quit(false), mousePos(0, 0)
 {
 	std::string title = constants["display"]["title"].get<std::string>();
 
@@ -20,7 +20,11 @@ Window::Window(const nlohmann::json& constants)
 	if (window == NULL)
 		std::cout << "Failed to create window: " << SDL_GetError() << std::endl;
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
+	// Renderer flags
+	int flags = (SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+	if (constants["display"]["vsync"]) flags |= SDL_RENDERER_PRESENTVSYNC; // Vsync
+
+	renderer = SDL_CreateRenderer(window, -1, flags);
 }
 
 Window::~Window()
@@ -45,6 +49,11 @@ void Window::events()
 		{
 		case SDL_QUIT:
 			quit = true; break;
+		
+		case SDL_MOUSEMOTION:
+			mousePos.x = event.motion.x;
+			mousePos.y = event.motion.y;
+			break;
 		}
 	}
 }

@@ -33,6 +33,8 @@ void Game::iteration()
 	window.events();
 
 	window.drawRect({ 40, 40 }, { 40, 40 }, { 255, 255, 255, 255 });
+
+	window.drawRect(window.getMousePos().cast<int32_t>(), { 40, 40 }, { 255, 0, 0, 255 });
 }
 
 #ifdef __EMSCRIPTEN__
