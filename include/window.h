@@ -13,7 +13,6 @@ class Window
 {
 public:
 	Window(const nlohmann::json& constants);
-	Window();
 	~Window();
 
 	void update();

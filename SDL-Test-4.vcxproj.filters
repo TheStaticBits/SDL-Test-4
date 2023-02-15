@@ -4,11 +4,13 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\window.cpp" />
     <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\save.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\window.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\vect.h" />
+    <ClInclude Include="include\save.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\constants.json" />

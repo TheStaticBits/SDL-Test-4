@@ -16,7 +16,7 @@ Window::Window(const nlohmann::json& constants)
 
 	// Creating window, centered on the screen
 	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winSize.x, winSize.y, SDL_WINDOW_SHOWN);
-	
+
 	if (window == NULL)
 		std::cout << "Failed to create window: " << SDL_GetError() << std::endl;
 

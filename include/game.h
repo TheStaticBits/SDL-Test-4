@@ -8,6 +8,7 @@
 #include <nlohmann/json.hpp>
 
 #include "window.h"
+#include "save.h"
 
 class Game
 {
@@ -24,6 +25,7 @@ private:
 	const nlohmann::json constants;
 	
 	Window window;
+	Save saveData;
 
 	int exitStatus;
 };
