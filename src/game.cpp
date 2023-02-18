@@ -26,7 +26,7 @@ const char* emscriptenSave(int eventType, const void* reserved, void* gamePtr)
 {
 	Game* game = (Game*)gamePtr;
 	game->save();
-	return "EEEE";
+	return NULL;
 }
 #endif
 

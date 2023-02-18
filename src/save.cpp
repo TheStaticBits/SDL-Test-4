@@ -53,7 +53,7 @@ EM_ASYNC_JS(bool, saveToServer, (const char* saveData), {
 
 // Cookies
 EM_JS(bool, hasCookie, (const char* cookieName), {
-	return window.localStorage.getItem(UTF8ToString(cookieName));
+	return window.localStorage.getItem(UTF8ToString(cookieName)) != null;
 });
 
 EM_JS(void, setCookie, (const char* cookieName, const char* saveData), {
@@ -79,7 +79,6 @@ void Save::load(const nlohmann::json& constants)
 {
 #ifdef __EMSCRIPTEN__
 	std::string save = "failed";
-	std::cout << "Test" << std::endl;
 	
 	if (loadSaveDefined() && userAuthenticated())
 	{
@@ -95,7 +94,7 @@ void Save::load(const nlohmann::json& constants)
 		std::cout << "C++: Looking for cookie " << cookieName << std::endl;
 		if (hasCookie(cookieName.c_str()))
 		{
-			std::cout << "C++: Found cookie!" << retrieveCookie(cookieName.c_str()) << std::endl;
+			std::cout << "C++: Found cookie! " << retrieveCookie(cookieName.c_str()) << std::endl;
 			save = retrieveCookie(cookieName.c_str());
 		}
 		else
