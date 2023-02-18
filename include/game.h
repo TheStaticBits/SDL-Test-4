@@ -19,6 +19,8 @@ public:
 	void iteration();
 	void mainLoop();
 
+	void save();
+
 	const int getExitStatus() const { return exitStatus; }
 
 private:

@@ -13,13 +13,21 @@
 #ifdef __EMSCRIPTEN__
 
 #include "emscripten.h"
+#include "emscripten/html5.h"
 // Emscripten main loop, just calls the main loop of the Game object passed in
-void emscriptenIteration(void* arg)
+void emscriptenIteration(void* gamePtr)
 {
-	Game* game = (Game*)arg;
+	Game* game = (Game*)gamePtr;
 	game->iteration();
 }
 
+// Emscripten beforeunload callback which calls the game save function
+const char* emscriptenSave(int eventType, const void* reserved, void* gamePtr)
+{
+	Game* game = (Game*)gamePtr;
+	game->save();
+	return "EEEE";
+}
 #endif
 
 
@@ -51,9 +59,18 @@ void Game::iteration()
 void Game::mainLoop()
 {
 #ifdef __EMSCRIPTEN__
+	emscripten_set_beforeunload_callback(this, emscriptenSave);
 	emscripten_set_main_loop_arg(emscriptenIteration, this, 0, 1);
 #else
 	while (!window.isClosed())
 		iteration();
+	save();
 #endif
+
+}
+
+
+void Game::save()
+{
+	saveData.save(constants);
 }
