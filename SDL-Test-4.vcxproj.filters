@@ -11,6 +11,8 @@
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\vect.h" />
     <ClInclude Include="include\save.h" />
+    <ClInclude Include="include\components.h" />
+    <ClInclude Include="include\systems.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\constants.json" />

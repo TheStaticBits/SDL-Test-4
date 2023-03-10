@@ -195,14 +195,14 @@
     <Link>
       <AdditionalLinkDirectories>
       </AdditionalLinkDirectories>
-      <AdditionalOptions>-sUSE_SDL=2 -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sSDL2_IMAGE_FORMATS=["png"] -sASYNCIFY --embed-file data %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-sUSE_SDL=2 --preload-file data -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sSDL2_IMAGE_FORMATS=["png"] -sASYNCIFY %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <Link>
       <AdditionalLinkDirectories>
       </AdditionalLinkDirectories>
-      <AdditionalOptions>-sUSE_SDL=2 -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sSDL2_IMAGE_FORMATS=["png"] -sASYNCIFY --embed-file data %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-sUSE_SDL=2 --preload-file data -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sSDL2_IMAGE_FORMATS=["png"] -sASYNCIFY %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)include;C:\vcpkg\installed\x86-windows\include</AdditionalIncludeDirectories>
@@ -215,8 +215,10 @@
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\components.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\save.h" />
+    <ClInclude Include="include\systems.h" />
     <ClInclude Include="include\vect.h" />
     <ClInclude Include="include\window.h" />
   </ItemGroup>

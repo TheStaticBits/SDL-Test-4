@@ -6,18 +6,18 @@
 using EntityID = uint64_t;
 
 
-struct Position 
+struct Position
 {
     Vect<int64_t> pos;
-}
+};
 
-struct Velocities 
+struct Velocity
 {
     Vect<int64_t> vel;
-}
+};
 
-struct Registry 
+struct Registry
 {
     std::map<EntityID, Position> positions;
     std::map<EntityID, Velocity> velocities;
-}
+};

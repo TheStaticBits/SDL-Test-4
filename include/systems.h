@@ -1,4 +1,4 @@
-struct Systems 
+struct Systems
 {
-    
-}
+
+};
