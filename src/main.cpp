@@ -3,13 +3,13 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include "game.h"
+#include <entt/entt.hpp>
 
-int main(int argc, char* args[])
+int main(int argc, char* argv[])
 {
-	Game game;
+	std::cout << "ECS Test" << std::endl;
 
-	game.mainLoop();
+	entt::registry registry;
 
-	return game.getExitStatus();
+	return 0;
 }
