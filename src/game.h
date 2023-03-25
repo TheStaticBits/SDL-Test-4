@@ -5,29 +5,28 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include <entt/entt.hpp>
 #include <nlohmann/json.hpp>
 
-#include "window.h"
 #include "save.h"
+#include "window.h"
 
 class Game
 {
 public:
 	Game();
-	~Game();
+
+	static void initSDL();
 
 	void iteration();
-	void mainLoop();
-
-	void save();
-
-	const int getExitStatus() const { return exitStatus; }
+	void saveData();
+	
+	void start();
 
 private:
 	const nlohmann::json constants;
-	
-	Window window;
-	Save saveData;
+	entt::registry registry;
 
-	int exitStatus;
+	Save save;
+	Window window;
 };

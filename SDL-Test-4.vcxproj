@@ -215,7 +215,16 @@
     <None Include="data\constants.json" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\save.cpp" />
+    <ClCompile Include="src\window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\game.h" />
+    <ClInclude Include="src\save.h" />
+    <ClInclude Include="src\vect.h" />
+    <ClInclude Include="src\window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

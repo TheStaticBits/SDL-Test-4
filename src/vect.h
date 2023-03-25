@@ -23,6 +23,9 @@ struct Vect
 
 	template<typename U>
 	Vect<U> cast() const { return Vect<U>(static_cast<U>(x), static_cast<U>(y)); }
+
+	template<typename U> U xCast() const { return static_cast<U>(x); }
+	template<typename U> U yCast() const { return static_cast<U>(y); }
 	
 	
 	// Copy assignment operator	

@@ -5,11 +5,13 @@
 
 #include <entt/entt.hpp>
 
+#include "game.h"
+
 int main(int argc, char* argv[])
 {
-	std::cout << "ECS Test" << std::endl;
-
-	entt::registry registry;
+	Game::initSDL();
+	Game game;
+	game.start();
 
 	return 0;
 }

@@ -119,7 +119,7 @@ void Save::load(const nlohmann::json& constants)
 #endif
 
 	if (empty)
-		data = nlohmann::json({});// Creates an empty JSON
+		data = nlohmann::json({}); // Creates an empty JSON
 }
 
 void Save::save(const nlohmann::json& constants)
