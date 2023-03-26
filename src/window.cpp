@@ -9,6 +9,9 @@
 
 #include "vect.h"
 
+#define SDL_ERR(message) std::cout << "Failed to " << message << ": " << SDL_GetError() << std::endl;
+#define SDL_RUN(x, message) if (x != 0) { SDL_ERR(message); }
+
 Window::Window(const nlohmann::json& constants)
 	: window(nullptr), renderer(nullptr), exit(false)
 {
@@ -56,13 +59,51 @@ void Window::events()
 	}
 }
 
-void Window::drawRect(const Vect<int32_t>&& pos, const Vect<uint32_t>&& size, const std::vector<uint8_t>&& color)
+SDL_Texture* Window::loadTexture(std::string path)
+{
+	SDL_Texture* texture = IMG_LoadTexture(renderer, path.c_str());
+	if (texture == nullptr) SDL_ERR("load image at " + path);
+
+	return texture;
+}
+
+
+void Window::setTarget(SDL_Texture* texture)
+{
+	SDL_SetRenderTarget(renderer, texture);
+}
+
+void Window::resetTarget()
+{
+	SDL_SetRenderTarget(renderer, nullptr);
+}
+
+void Window::setBlendMode(SDL_BlendMode blendMode)
+{
+	SDL_SetRenderDrawBlendMode(renderer, blendMode);
+}
+
+void Window::resetBlendMode()
+{
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+}
+
+
+void Window::drawRect(const SDL_Rect& rect, const std::vector<uint8_t>& color)
 {
 	SDL_SetRenderDrawColor(renderer, color[0], color[1], color[2], color[3]); // Set draw color
 
-	const SDL_Rect rect = { pos.x, pos.y, size.xCast<int32_t>(), size.yCast<int32_t>() };
-	if (SDL_RenderFillRect(renderer, &rect) != 0) // Draw rect
-		std::cout << "Failed to draw rect" << SDL_GetError() << std::endl;
+	SDL_RUN(SDL_RenderFillRect(renderer, &rect), "draw rect") // Draw rect
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Reset color
+}
+
+void Window::render(SDL_Texture* texture, const SDL_Rect& dest)
+{
+	SDL_RUN(SDL_RenderCopy(renderer, texture, nullptr, &dest), "draw image without src");
+}
+
+void Window::render(SDL_Texture* texture, const SDL_Rect& src, const SDL_Rect& dest)
+{
+	SDL_RUN(SDL_RenderCopy(renderer, texture, &src, &dest), "draw image with src");
 }

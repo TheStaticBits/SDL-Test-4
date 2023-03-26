@@ -9,11 +9,16 @@
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\window.cpp" />
     <ClCompile Include="src\save.cpp" />
+    <ClCompile Include="src\comps\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game.h" />
     <ClInclude Include="src\window.h" />
     <ClInclude Include="src\vect.h" />
     <ClInclude Include="src\save.h" />
+    <ClInclude Include="src\comps\texture.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\gameplay\platform.png" />
   </ItemGroup>
 </Project>

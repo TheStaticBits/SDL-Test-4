@@ -20,9 +20,20 @@ public:
 	void update();
 	void events();
 
-	const bool isClosed() const { return exit; }
+	inline const bool isClosed() const { return exit; }
 
-	void drawRect(const Vect<int32_t>&& pos, const Vect<uint32_t>&& size, const std::vector<uint8_t>&& color);
+	SDL_Texture* loadTexture(std::string path);
+
+	void setTarget(SDL_Texture* texture);
+	void resetTarget();
+
+	void setBlendMode(SDL_BlendMode blendMode);
+	void resetBlendMode();
+
+	void drawRect(const SDL_Rect& rect, const std::vector<uint8_t>& color);
+	void render(SDL_Texture* texture, const SDL_Rect& dest);
+	void render(SDL_Texture* texture, const SDL_Rect& src, const SDL_Rect& dest);
+
 
 private:
 	SDL_Window* window;
