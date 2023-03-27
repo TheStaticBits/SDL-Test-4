@@ -1,4 +1,4 @@
-#include "window.h"
+#include "core/window.h"
 
 #include <iostream>
 
@@ -7,13 +7,13 @@
 
 #include <nlohmann/json.hpp>
 
-#include "vect.h"
+#include "utility/vect.h"
 
 #define SDL_ERR(message) std::cout << "Failed to " << message << ": " << SDL_GetError() << std::endl;
 #define SDL_RUN(x, message) if (x != 0) { SDL_ERR(message); }
 
 Window::Window(const nlohmann::json& constants)
-	: window(nullptr), renderer(nullptr), exit(false)
+	: window(nullptr), renderer(nullptr), exit(false), deltaTime(0), lastTime(0)
 {
 	init(constants);
 }
@@ -43,6 +43,12 @@ void Window::update()
 {
 	SDL_RenderPresent(renderer); // Show frame
 	SDL_RenderClear(renderer); // Clear window
+}
+
+void Window::updateDeltaTime()
+{
+	deltaTime = static_cast<float>(SDL_GetTicks() - lastTime) / 1000.0f;	// Delta time in seconds
+	lastTime = SDL_GetTicks();
 }
 
 void Window::events()
@@ -92,9 +98,7 @@ void Window::resetBlendMode()
 void Window::drawRect(const SDL_Rect& rect, const std::vector<uint8_t>& color)
 {
 	SDL_SetRenderDrawColor(renderer, color[0], color[1], color[2], color[3]); // Set draw color
-
 	SDL_RUN(SDL_RenderFillRect(renderer, &rect), "draw rect") // Draw rect
-
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Reset color
 }
 

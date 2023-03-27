@@ -8,8 +8,8 @@
 #include <entt/entt.hpp>
 #include <nlohmann/json.hpp>
 
-#include "save.h"
-#include "window.h"
+#include "core/save.h"
+#include "core/window.h"
 
 class Game
 {

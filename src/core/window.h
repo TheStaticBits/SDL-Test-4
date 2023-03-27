@@ -7,7 +7,7 @@
 
 #include <nlohmann/json.hpp>
 
-#include "vect.h"
+#include "utility/vect.h"
 
 class Window
 {
@@ -18,6 +18,7 @@ public:
 	void init(const nlohmann::json& constants);
 
 	void update();
+	void updateDeltaTime();
 	void events();
 
 	inline const bool isClosed() const { return exit; }
@@ -41,4 +42,7 @@ private:
 
 	Vect<uint32_t> size;
 	bool exit;
+	
+	float deltaTime;
+	uint32_t lastTime;
 };

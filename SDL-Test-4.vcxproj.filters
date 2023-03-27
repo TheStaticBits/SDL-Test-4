@@ -6,17 +6,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\game.cpp" />
-    <ClCompile Include="src\window.cpp" />
-    <ClCompile Include="src\save.cpp" />
-    <ClCompile Include="src\comps\texture.cpp" />
+    <ClCompile Include="src\core\game.cpp" />
+    <ClCompile Include="src\core\window.cpp" />
+    <ClCompile Include="src\core\save.cpp" />
+    <ClCompile Include="src\comp\texture.cpp" />
+    <ClCompile Include="src\systems\factories.cpp" />
+    <ClCompile Include="src\comp\multitexture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\game.h" />
-    <ClInclude Include="src\window.h" />
-    <ClInclude Include="src\vect.h" />
-    <ClInclude Include="src\save.h" />
-    <ClInclude Include="src\comps\texture.h" />
+    <ClInclude Include="src\core\game.h" />
+    <ClInclude Include="src\core\window.h" />
+    <ClInclude Include="src\utility\vect.h" />
+    <ClInclude Include="src\core\save.h" />
+    <ClInclude Include="src\comp\texture.h" />
+    <ClInclude Include="src\systems\factories.h" />
+    <ClInclude Include="src\comp\multitexture.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\gameplay\platform.png" />

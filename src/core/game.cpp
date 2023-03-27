@@ -1,10 +1,16 @@
-#include "game.h"
+#include "core/game.h"
 
 #include <iostream>
 #include <fstream>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+
+#include <entt/entt.hpp>
+#include <nlohmann/json.hpp>
+
+#include "core/save.h"
+#include "core/window.h"
 
 
 #ifdef __EMSCRIPTEN__

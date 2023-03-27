@@ -1,4 +1,4 @@
-#include "texture.h"
+#include "comp/texture.h"
 
 #include <iostream>
 
@@ -7,8 +7,8 @@
 
 #include <nlohmann/json.hpp>
 
-#include "vect.h"
-#include "window.h"
+#include "utility/vect.h"
+#include "core/window.h"
 
 Texture::Texture()
 	: texture(nullptr)

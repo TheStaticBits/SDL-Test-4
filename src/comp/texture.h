@@ -7,8 +7,8 @@
 
 #include <nlohmann/json.hpp>
 
-#include "vect.h"
-#include "window.h"
+#include "utility/vect.h"
+#include "core/window.h"
 
 class Texture
 {
