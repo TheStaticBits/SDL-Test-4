@@ -18,7 +18,7 @@ Window::Window(const nlohmann::json& constants)
 	init(constants);
 }
 
-Window::~Window()
+void Window::destroy()
 {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -55,17 +55,27 @@ void Window::events()
 {
 	SDL_Event event;
 
+	std::unordered_map<SDL_Keycode, bool> tempKeys = keyStates; // Copy current keys to temp
+
 	while (SDL_PollEvent(&event))
 	{
-		switch (event.type)
-		{
-		case SDL_QUIT:
-			exit = true; break;
-		}
+		if (event.type == SDL_QUIT) 
+			exit = true;
+		else if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)
+			handleKey(tempKeys, event.key.keysym.sym, event.type);
 	}
+	
+	lastFrameKeys = keyStates; // Update last frame keys
+	keyStates = tempKeys; // Update current keys
 }
 
-SDL_Texture* Window::loadTexture(std::string path)
+void Window::handleKey(std::unordered_map<SDL_Keycode, bool>& keyMap, SDL_Keycode key, uint32_t event)
+{
+	if (std::find(allowedKeys.begin(), allowedKeys.end(), key) != allowedKeys.end()) // Check if key is allowed
+		keyMap[key] = (event == SDL_KEYDOWN);
+}
+
+[[nodiscard]] SDL_Texture* Window::loadTexture(std::string path)
 {
 	SDL_Texture* texture = IMG_LoadTexture(renderer, path.c_str());
 	if (texture == nullptr) SDL_ERR("load image at " + path);

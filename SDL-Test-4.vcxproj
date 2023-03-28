@@ -128,6 +128,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)src</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +146,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)src</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,6 +164,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)src;</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -179,6 +182,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)src;</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -215,20 +219,27 @@
     <None Include="data\constants.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\comp\multitexture.cpp" />
-    <ClCompile Include="src\comp\texture.cpp" />
     <ClCompile Include="src\core\game.cpp" />
+    <ClCompile Include="src\helpers\textureHelpers.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\core\save.cpp" />
-    <ClCompile Include="src\systems\factories.cpp" />
+    <ClCompile Include="src\core\factories.cpp" />
     <ClCompile Include="src\core\window.cpp" />
+    <ClCompile Include="src\systems\moveSystem.cpp" />
+    <ClCompile Include="src\systems\renderSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\comp\multitexture.h" />
-    <ClInclude Include="src\comp\texture.h" />
+    <ClInclude Include="src\comps\movement.h" />
+    <ClInclude Include="src\comps\multitexture.h" />
+    <ClInclude Include="src\comps\position.h" />
+    <ClInclude Include="src\comps\size.h" />
+    <ClInclude Include="src\comps\texture.h" />
     <ClInclude Include="src\core\game.h" />
     <ClInclude Include="src\core\save.h" />
-    <ClInclude Include="src\systems\factories.h" />
+    <ClInclude Include="src\core\factories.h" />
+    <ClInclude Include="src\helpers\textureHelpers.h" />
+    <ClInclude Include="src\systems\moveSystem.h" />
+    <ClInclude Include="src\systems\renderSystem.h" />
     <ClInclude Include="src\utility\vect.h" />
     <ClInclude Include="src\core\window.h" />
   </ItemGroup>

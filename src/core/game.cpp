@@ -11,6 +11,7 @@
 
 #include "core/save.h"
 #include "core/window.h"
+#include "helpers/textureHelpers.h"
 
 
 #ifdef __EMSCRIPTEN__
@@ -38,6 +39,15 @@ Game::Game()
 	  registry(), save(constants), window(constants)
 {
 
+}
+
+Game::~Game()
+{
+	Helpers::destroyTextures(registry);
+	window.destroy();
+
+	SDL_Quit();
+	IMG_Quit();
 }
 
 
