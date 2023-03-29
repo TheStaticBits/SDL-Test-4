@@ -9,7 +9,7 @@
 
 #include "utility/vect.h"
 
-#define SDL_ERR(message) // std::cout << "Failed to " << message << ": " << SDL_GetError() << std::endl;
+#define SDL_ERR(message) std::cout << "Failed to " << message << ": " << SDL_GetError() << std::endl;
 #define SDL_RUN(x, message) if (x != 0) { SDL_ERR(message); }
 
 Window::Window(const nlohmann::json& constants)

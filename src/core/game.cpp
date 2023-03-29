@@ -14,6 +14,8 @@
 #include "core/factories.h"
 
 #include "helpers/textureHelpers.h"
+#include "helpers/playerHelpers.h"
+
 #include "systems/moveSystem.h"
 #include "systems/renderSystem.h"
 
@@ -62,7 +64,7 @@ void Game::initSDL()
 
 void Game::initObjects()
 {
-	Factories::makePlayer(registry, window, constants);
+	Factories::makePlayer(registry, window, constants, save.getData());
 }
 
 
@@ -81,6 +83,8 @@ void Game::iteration()
 
 void Game::saveData()
 {
+	Helpers::playerSave(registry, save.getData());
+
 	save.save(constants);
 }
 

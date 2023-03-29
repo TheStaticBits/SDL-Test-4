@@ -16,7 +16,7 @@ public:
 	void save(const nlohmann::json& constants);
 
 	inline const bool emptySave() const { return empty; } // If there is no save data
-	inline const nlohmann::json& getData() const { return data; }
+	inline nlohmann::json& getData() { return data; }
 	
 private:
 	nlohmann::json data;

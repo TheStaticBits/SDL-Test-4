@@ -217,9 +217,11 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="data\constants.json" />
+    <None Include="save\save.json" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\game.cpp" />
+    <ClCompile Include="src\helpers\playerHelpers.cpp" />
     <ClCompile Include="src\helpers\textureHelpers.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\core\save.cpp" />
@@ -231,12 +233,14 @@
   <ItemGroup>
     <ClInclude Include="src\comps\movement.h" />
     <ClInclude Include="src\comps\multitexture.h" />
+    <ClInclude Include="src\comps\player.h" />
     <ClInclude Include="src\comps\position.h" />
     <ClInclude Include="src\comps\size.h" />
     <ClInclude Include="src\comps\texture.h" />
     <ClInclude Include="src\core\game.h" />
     <ClInclude Include="src\core\save.h" />
     <ClInclude Include="src\core\factories.h" />
+    <ClInclude Include="src\helpers\playerHelpers.h" />
     <ClInclude Include="src\helpers\textureHelpers.h" />
     <ClInclude Include="src\systems\moveSystem.h" />
     <ClInclude Include="src\systems\renderSystem.h" />

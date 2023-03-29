@@ -13,7 +13,7 @@
 
 	"player": {
 		"image": "res/gameplay/player.png",
-		"acceleration": 4,
+		"acceleration": 10,
 		"maxSpeed": 7
 	}
 }

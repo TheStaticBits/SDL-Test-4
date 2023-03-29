@@ -3,6 +3,7 @@
   <ItemGroup>
     <None Include="data\constants.json" />
     <None Include=".gitignore" />
+    <None Include="save\save.json" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
@@ -13,6 +14,7 @@
     <ClCompile Include="src\helpers\textureHelpers.cpp" />
     <ClCompile Include="src\systems\moveSystem.cpp" />
     <ClCompile Include="src\systems\renderSystem.cpp" />
+    <ClCompile Include="src\helpers\playerHelpers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\game.h" />
@@ -28,6 +30,8 @@
     <ClInclude Include="src\comps\movement.h" />
     <ClInclude Include="src\systems\moveSystem.h" />
     <ClInclude Include="src\systems\renderSystem.h" />
+    <ClInclude Include="src\helpers\playerHelpers.h" />
+    <ClInclude Include="src\comps\player.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\gameplay\platform.png" />

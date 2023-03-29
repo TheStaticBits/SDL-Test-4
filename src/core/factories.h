@@ -12,5 +12,5 @@
 
 namespace Factories
 {
-	entt::entity makePlayer(entt::registry& registry, Window& window, const nlohmann::json& constants);
+	entt::entity makePlayer(entt::registry& registry, Window& window, const nlohmann::json& constants, const nlohmann::json& save);
 };
