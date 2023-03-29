@@ -200,14 +200,14 @@
     <Link>
       <AdditionalLinkDirectories>
       </AdditionalLinkDirectories>
-      <AdditionalOptions>-sUSE_SDL=2 --preload-file data -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sSDL2_IMAGE_FORMATS=["png"] -sASYNCIFY %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-sUSE_SDL=2 --preload-file data --preload-file res -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sSDL2_IMAGE_FORMATS=["png"] -sASYNCIFY %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <Link>
       <AdditionalLinkDirectories>
       </AdditionalLinkDirectories>
-      <AdditionalOptions>-sUSE_SDL=2 --preload-file data -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sSDL2_IMAGE_FORMATS=["png"] -sASYNCIFY %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-sUSE_SDL=2 --preload-file data --preload-file res -sUSE_SDL_IMAGE=2 -sUSE_SDL_TTF=2 -sSDL2_IMAGE_FORMATS=["png"] -sASYNCIFY %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)src;C:\vcpkg\installed\x86-windows\include</AdditionalIncludeDirectories>
