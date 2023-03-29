@@ -9,7 +9,21 @@
 
 namespace Systems
 {
-	void movement(Window& window, entt::registry& registry, const nlohmann::json& constants)
+	void updateVelocity(entt::registry& registry, Window& window)
+	{
+		auto view = registry.view<Comps::Movement, Tags::KeyboardInput>();
+		
+		for (const entt::entity entity : view)
+		{
+			auto& movement = view.get<Comps::Movement>(entity);
+
+			//// Updates velocity with acceleration based on input
+			movement.vel.x += (window.getKeyState(SDLK_RIGHT) - window.getKeyState(SDLK_LEFT)) * movement.acceleration * window.getDeltaTime();
+			movement.vel.y += (window.getKeyState(SDLK_DOWN) - window.getKeyState(SDLK_UP)) * movement.acceleration * window.getDeltaTime();
+		}
+	}
+
+	void movement(entt::registry& registry, Window& window)
 	{
 		auto view = registry.view<Comps::Movement, Comps::Position>();
 

@@ -8,6 +8,6 @@ namespace Comps
 {
 	struct Position
 	{
-		Vect<int32_t> pos;
+		Vect<float> pos;
 	};
 }

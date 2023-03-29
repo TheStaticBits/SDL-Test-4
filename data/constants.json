@@ -9,5 +9,11 @@
 	"save": {
 		"path": "save/save.json",
 		"cookieName": "save"
+	},
+
+	"player": {
+		"image": "res/gameplay/player.png",
+		"acceleration": 4,
+		"maxSpeed": 20
 	}
 }

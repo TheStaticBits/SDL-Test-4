@@ -8,6 +8,14 @@ namespace Comps
 {
 	struct Movement
 	{
-		Vect<int32_t> vel;
+		Vect<float> vel;
+		float acceleration;
+		float maxSpeed;
 	};
+}
+
+// Movement objects that go off player input
+namespace Tags
+{
+	struct KeyboardInput {};
 }

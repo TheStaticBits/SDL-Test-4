@@ -38,7 +38,7 @@ namespace Helpers
 		for (const entt::entity entity : view)
 		{
 			auto& texture = view.get<Comps::Texture>(entity);
-			SDL_DestroyTexture(texture.texture);
+			SDL_DestroyTexture(texture.tex);
 		}
 	}
 }

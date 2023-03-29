@@ -7,5 +7,9 @@
 
 namespace Systems
 {
-	void movement(Window& window, entt::registry& registry, const nlohmann::json& constants);
+	// Updates entities which move according to keyboard input
+	void updateVelocity(entt::registry& registry, Window& window);
+
+	// Update enemy movement with velocity
+	void movement(entt::registry& registry, Window& window);
 }

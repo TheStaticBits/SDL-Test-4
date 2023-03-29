@@ -31,5 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\gameplay\platform.png" />
+    <Image Include="res\gameplay\player.png" />
   </ItemGroup>
 </Project>

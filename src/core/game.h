@@ -19,6 +19,8 @@ public:
 
 	static void initSDL();
 
+	void initObjects();
+
 	void iteration();
 	void saveData();
 	

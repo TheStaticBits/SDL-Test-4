@@ -20,7 +20,7 @@ struct Vect
 	Vect(const Vect<T>& other) : x(other.x), y(other.y) { } // Copy constructor
 
 	// Utility
-	SDL_Rect toRect(const Vect<T> other) { return { x, y, other.x, other.y };  }
+	SDL_Rect toRect(const Vect<T> other) const { return { x, y, other.x, other.y };  }
 	void print() const { std::cout << "(" << x << ", " << y << ")" << std::endl; }
 
 	// Casting

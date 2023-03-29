@@ -20,9 +20,13 @@ namespace Factories
 	entt::entity makePlayer(entt::registry& registry, Window& window, const nlohmann::json& constants)
 	{
 		entt::entity entity = registry.create();
-		registry.emplace<Comps::Texture>(entity, Helpers::makeTexture("", window, constants));
-		registry.emplace<Comps::Position>(entity, Vect<int32_t>(0, 0));
-		registry.emplace<Comps::Movement>(entity, Vect<int32_t>(0, 0));
+
+		registry.emplace<Comps::Texture>(entity, Helpers::makeTexture(constants["player"]["image"].get<std::string>(), window, constants));
+		registry.emplace<Comps::Position>(entity, Vect<float>(0.0f, 0.0f));
+		registry.emplace<Comps::Movement>(entity, Vect<float>(0.0f, 0.0f), 
+										  constants["player"]["acceleration"].get<float>(), 
+										  constants["player"]["maxSpeed"].get<float>());
+		registry.emplace<Tags::KeyboardInput>(entity);
 
 		return entity;
 	}

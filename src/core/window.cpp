@@ -16,6 +16,13 @@ Window::Window(const nlohmann::json& constants)
 	: window(nullptr), renderer(nullptr), exit(false), deltaTime(0), lastTime(0)
 {
 	init(constants);
+
+	// Populate keyStates
+	for (const SDL_Keycode key : allowedKeys)
+	{
+		keyStates[key] = false;
+		lastFrameKeys[key] = false;
+	}
 }
 
 void Window::destroy()
@@ -47,7 +54,7 @@ void Window::update()
 
 void Window::updateDeltaTime()
 {
-	deltaTime = static_cast<float>(SDL_GetTicks() - lastTime) / 1000.0f;	// Delta time in seconds
+	deltaTime = static_cast<float>(SDL_GetTicks() - lastTime) / 1000.0f; // Delta time in seconds
 	lastTime = SDL_GetTicks();
 }
 

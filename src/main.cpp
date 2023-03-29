@@ -10,7 +10,10 @@
 int main(int argc, char* argv[])
 {
 	Game::initSDL();
+
 	Game game;
+	
+	game.initObjects();
 	game.start();
 
 	return 0;

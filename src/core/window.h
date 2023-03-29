@@ -39,6 +39,7 @@ public:
 
 	inline const bool getKeyState(SDL_Keycode key) const { return keyStates.at(key); }
 	inline const bool keyJustPressed(SDL_Keycode key) const { return keyStates.at(key) && !lastFrameKeys.at(key); }
+	inline const float getDeltaTime() const { return deltaTime; }
 
 private:
 	void handleKey(std::unordered_map<SDL_Keycode, bool>& keyMap, SDL_Keycode key, uint32_t event);

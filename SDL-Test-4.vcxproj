@@ -245,6 +245,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\gameplay\platform.png" />
+    <Image Include="res\gameplay\player.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -11,8 +11,11 @@
 
 #include "core/save.h"
 #include "core/window.h"
-#include "helpers/textureHelpers.h"
+#include "core/factories.h"
 
+#include "helpers/textureHelpers.h"
+#include "systems/moveSystem.h"
+#include "systems/renderSystem.h"
 
 #ifdef __EMSCRIPTEN__
 #include "emscripten.h"
@@ -57,11 +60,22 @@ void Game::initSDL()
 	IMG_Init(IMG_INIT_PNG);
 }
 
+void Game::initObjects()
+{
+	Factories::makePlayer(registry, window, constants);
+}
+
 
 void Game::iteration()
 {
-	window.update();
 	window.events();
+	window.updateDeltaTime();
+
+	Systems::updateVelocity(registry, window);
+	Systems::movement(registry, window);
+	Systems::render(registry, window);
+
+	window.update();
 }
 
 
