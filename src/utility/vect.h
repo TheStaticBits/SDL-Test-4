@@ -20,7 +20,7 @@ struct Vect
 	Vect(const Vect<T>& other) : x(other.x), y(other.y) { } // Copy constructor
 
 	// Utility
-	SDL_Rect toRect(const Vect<T> other) const { return { x, y, other.x, other.y };  }
+	inline SDL_Rect toRect(const Vect<T> other) const { return { x, y, other.x, other.y };  }
 	void print() const { std::cout << "(" << x << ", " << y << ")" << std::endl; }
 
 	// Casting
@@ -30,36 +30,36 @@ struct Vect
 
 	
 	// Copy assignment operator	
-	Vect<T>& operator=(const Vect<T>& other) { x = other.x; y = other.y; return *this; }
+	inline Vect<T>& operator=(const Vect<T>& other) { x = other.x; y = other.y; return *this; }
 
 	// Operators
-	Vect<T> operator+(const Vect<T>& other) const { return Vect<T>(x + other.x, y + other.y); }
-	Vect<T> operator-(const Vect<T>& other) const { return Vect<T>(x - other.x, y - other.y); }
-	Vect<T> operator*(const Vect<T>& other) const { return Vect<T>(x * other.x, y * other.y); }
-	Vect<T> operator/(const Vect<T>& other) const { return Vect<T>(x / other.x, y / other.y); }
+	inline Vect<T> operator+(const Vect<T>& other) const { return Vect<T>(x + other.x, y + other.y); }
+	inline Vect<T> operator-(const Vect<T>& other) const { return Vect<T>(x - other.x, y - other.y); }
+	inline Vect<T> operator*(const Vect<T>& other) const { return Vect<T>(x * other.x, y * other.y); }
+	inline Vect<T> operator/(const Vect<T>& other) const { return Vect<T>(x / other.x, y / other.y); }
 	
-	Vect<T> operator/(T other) const { return Vect<T>(x / other, y / other); }
-	Vect<T> operator+(T other) const { return Vect<T>(x + other, y + other); }
-	Vect<T> operator-(T other) const { return Vect<T>(x - other, y - other); }
-	Vect<T> operator*(T other) const { return Vect<T>(x * other, y * other); }
+	inline Vect<T> operator/(T other) const { return Vect<T>(x / other, y / other); }
+	inline Vect<T> operator+(T other) const { return Vect<T>(x + other, y + other); }
+	inline Vect<T> operator-(T other) const { return Vect<T>(x - other, y - other); }
+	inline Vect<T> operator*(T other) const { return Vect<T>(x * other, y * other); }
 	
 	// Operator set equal to
-	void operator+=(const Vect<T>& other) { x += other.x; y += other.y; }
-	void operator-=(const Vect<T>& other) { x -= other.x; y -= other.y; }
-	void operator*=(const Vect<T>& other) { x *= other.x; y *= other.y; }
-	void operator/=(const Vect<T>& other) { x /= other.x; y /= other.y; }
+	inline void operator+=(const Vect<T>& other) { x += other.x; y += other.y; }
+	inline void operator-=(const Vect<T>& other) { x -= other.x; y -= other.y; }
+	inline void operator*=(const Vect<T>& other) { x *= other.x; y *= other.y; }
+	inline void operator/=(const Vect<T>& other) { x /= other.x; y /= other.y; }
 	
-	void operator+=(T other) { x += other; y += other; }
-	void operator-=(T other) { x -= other; y -= other; }
-	void operator*=(T other) { x *= other; y *= other; }
-	void operator/=(T other) { x /= other; y /= other; }
+	inline void operator+=(T other) { x += other; y += other; }
+	inline void operator-=(T other) { x -= other; y -= other; }
+	inline void operator*=(T other) { x *= other; y *= other; }
+	inline void operator/=(T other) { x /= other; y /= other; }
 	
 	// Booleans
-	bool operator==(const Vect<T>& other) const { return x == other.x && y == other.y; }
-	bool operator!=(const Vect<T>& other) const { return x != other.x || y != other.y; }
-	bool operator>=(const Vect<T>& other) const { return x >= other.x && y >= other.y; }
-	bool operator<=(const Vect<T>& other) const { return x <= other.x && y <= other.y; }
+	inline bool operator==(const Vect<T>& other) const { return x == other.x && y == other.y; }
+	inline bool operator!=(const Vect<T>& other) const { return x != other.x || y != other.y; }
+	inline bool operator>=(const Vect<T>& other) const { return x >= other.x && y >= other.y; }
+	inline bool operator<=(const Vect<T>& other) const { return x <= other.x && y <= other.y; }
 	
-	bool operator>(const Vect<T>& other) const { return x > other.x && y > other.y; }
-	bool operator<(const Vect<T>& other) const { return x < other.x&& y < other.y; }
+	inline bool operator>(const Vect<T>& other) const { return x > other.x && y > other.y; }
+	inline bool operator<(const Vect<T>& other) const { return x < other.x&& y < other.y; }
 };
