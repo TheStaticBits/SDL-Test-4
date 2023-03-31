@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <filesystem>
 
 #ifdef __EMSCRIPTEN__
 
@@ -145,8 +146,12 @@ void Save::save(const nlohmann::json& constants)
 	}
 #else
 	std::string filePath = constants["save"]["path"].get<std::string>();
-	std::ofstream file(filePath);
 
+	std::filesystem::path fileFolderPath = std::filesystem::path(filePath).parent_path(); // Gets the folder of the save file
+	const bool filePathExists = std::filesystem::is_directory(fileFolderPath); // Checks if the save folder exists
+	if (!filePathExists) std::filesystem::create_directory(fileFolderPath); // Creates the save folder if it doesn't exist
+	
+	std::ofstream file(filePath);
 	if (file.is_open())
 	{
 		file << strJson;
