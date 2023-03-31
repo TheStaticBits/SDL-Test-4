@@ -3,6 +3,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
+#include <chrono>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -51,7 +52,7 @@ private:
 	bool exit;
 	
 	float deltaTime;
-	uint32_t lastTime;
+	std::chrono::high_resolution_clock::time_point lastTime;
 
 	std::unordered_map<SDL_Keycode, bool> keyStates; // The current frame's keys
 	std::unordered_map<SDL_Keycode, bool> lastFrameKeys; // The previous frame's keys

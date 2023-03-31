@@ -1,6 +1,7 @@
 #include "core/window.h"
 
 #include <iostream>
+#include <chrono>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -13,7 +14,7 @@
 #define SDL_RUN(x, message) if (x != 0) { SDL_ERR(message); }
 
 Window::Window(const nlohmann::json& constants)
-	: window(nullptr), renderer(nullptr), exit(false), deltaTime(0), lastTime(0)
+	: window(nullptr), renderer(nullptr), exit(false), deltaTime(0), lastTime(std::chrono::high_resolution_clock::now())
 {
 	init(constants);
 
@@ -54,8 +55,9 @@ void Window::update()
 
 void Window::updateDeltaTime()
 {
-	deltaTime = static_cast<float>(SDL_GetTicks() - lastTime) / 1000.0f; // Delta time in seconds
-	lastTime = SDL_GetTicks();
+	std::chrono::high_resolution_clock::time_point currentTime = std::chrono::high_resolution_clock::now();
+	deltaTime = std::chrono::duration_cast<std::chrono::duration<float>>(currentTime - lastTime).count(); // Delta time in seconds
+	lastTime = currentTime;
 }
 
 void Window::events()

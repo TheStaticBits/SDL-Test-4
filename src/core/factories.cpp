@@ -24,14 +24,14 @@ namespace Factories
 
 		// Comps
 		registry.emplace<Comps::Texture>(entity, Helpers::makeTexture(constants["player"]["image"].get<std::string>(), window, constants));
-		registry.emplace<Comps::Movement>(entity, Vect<float>(0.0f, 0.0f), 
-										  constants["player"]["acceleration"].get<float>(), 
+		registry.emplace<Comps::Movement>(entity, Vect<float>(), 
+										  constants["player"]["acceleration"].get<float>(),
 										  constants["player"]["maxSpeed"].get<float>());
 
 		if (!save.empty())
 			registry.emplace<Comps::Position>(entity, Vect<float>(save["player"]["position"]));
 		else
-			registry.emplace<Comps::Position>(entity, Vect<float>(0.0f, 0.0f));
+			registry.emplace<Comps::Position>(entity, Vect<float>());
 
 		// Tags
 		registry.emplace<Tags::KeyboardInput>(entity);
@@ -39,4 +39,13 @@ namespace Factories
 
 		return entity;
 	}
-};
+
+	entt::entity makeTile(entt::registry& registry, Window& window, const nlohmann::json& constants)
+	{
+		entt::entity entity = registry.create();
+
+
+
+		return entity;
+	}
+}

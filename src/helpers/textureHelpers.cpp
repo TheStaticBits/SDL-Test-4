@@ -9,6 +9,7 @@
 #include "utility/vect.h"
 #include "core/window.h"
 #include "comps/texture.h"
+#include "comps/multitexture.h"
 
 namespace Helpers
 {
@@ -34,11 +35,15 @@ namespace Helpers
 
 	void destroyTextures(entt::registry& registry)
 	{
+		// Destroy all texture component's SDL texture
 		auto view = registry.view<Comps::Texture>();
 		for (const entt::entity entity : view)
-		{
-			auto& texture = view.get<Comps::Texture>(entity);
-			SDL_DestroyTexture(texture.tex);
-		}
+			SDL_DestroyTexture(view.get<Comps::Texture>(entity).tex);
+
+		// Destroy all textures in each multitexture component
+		auto viewMultitextures = registry.view<Comps::MultiTexture>();
+		for (const entt::entity entity : viewMultitextures)
+			for (const std::pair<Comps::Texture, Vect<int32_t>>& pair : viewMultitextures.get<Comps::MultiTexture>(entity).textures)
+				SDL_DestroyTexture(pair.first.tex);
 	}
 }

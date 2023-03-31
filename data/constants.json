@@ -13,7 +13,19 @@
 
 	"player": {
 		"image": "res/gameplay/player.png",
-		"acceleration": 10,
-		"maxSpeed": 7
+		"acceleration": 1000,
+		"maxSpeed": 450
+	},
+
+	"tiles": {
+		"image": "res/gameplay/tile.png",
+
+		"types": {
+			"normal": {
+				"chance": 100,
+				"color": [ 255, 255, 255 ],
+				"icon": ""
+			}
+		}
 	}
 }

@@ -10,7 +10,7 @@ namespace Helpers
 {
 	void playerSave(entt::registry& registry, nlohmann::json& save)
 	{
-		auto view = registry.view<Tags::Player, Comps::Position>();
+		auto view = registry.view<Comps::Position, Tags::Player>();
 
 		for (auto entity : view)
 		{

@@ -13,4 +13,6 @@
 namespace Factories
 {
 	entt::entity makePlayer(entt::registry& registry, Window& window, const nlohmann::json& constants, const nlohmann::json& save);
-};
+
+	entt::entity makeTile(entt::registry& registry, Window& window, const nlohmann::json& constants);
+}

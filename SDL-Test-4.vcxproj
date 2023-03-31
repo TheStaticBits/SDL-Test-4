@@ -217,7 +217,6 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="data\constants.json" />
-    <None Include="save\save.json" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\game.cpp" />
@@ -248,7 +247,7 @@
     <ClInclude Include="src\core\window.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\gameplay\platform.png" />
+    <Image Include="res\gameplay\tile.png" />
     <Image Include="res\gameplay\player.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

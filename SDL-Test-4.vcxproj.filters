@@ -3,7 +3,6 @@
   <ItemGroup>
     <None Include="data\constants.json" />
     <None Include=".gitignore" />
-    <None Include="save\save.json" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
@@ -34,7 +33,7 @@
     <ClInclude Include="src\comps\player.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\gameplay\platform.png" />
+    <Image Include="res\gameplay\tile.png" />
     <Image Include="res\gameplay\player.png" />
   </ItemGroup>
 </Project>
