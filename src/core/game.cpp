@@ -15,6 +15,8 @@
 
 #include "helpers/textureHelpers.h"
 #include "helpers/playerHelpers.h"
+#include "helpers/tileTexHelpers.h"
+#include "helpers/mapGenHelpers.h"
 
 #include "systems/moveSystem.h"
 #include "systems/renderSystem.h"
@@ -65,6 +67,13 @@ void Game::initSDL()
 void Game::initObjects()
 {
 	Factories::makePlayer(registry, window, constants, save.getData());
+	Factories::makeCamera(registry);
+
+	Factories::makeTileTextureStorage(registry, window, constants);
+	Factories::makeLayerGen(registry, constants);
+
+	Helpers::generateTileTextures(registry, window, constants);
+	Helpers::setupLayerGen(registry, constants);
 }
 
 
@@ -73,7 +82,7 @@ void Game::iteration()
 	window.events();
 	window.updateDeltaTime();
 
-	Systems::updateVelocity(registry, window);
+	Systems::updateKeyboardInputsVelocity(registry, window);
 	Systems::movement(registry, window);
 	Systems::render(registry, window);
 

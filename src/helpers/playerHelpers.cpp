@@ -10,9 +10,8 @@ namespace Helpers
 {
 	void playerSave(entt::registry& registry, nlohmann::json& save)
 	{
-		auto view = registry.view<Comps::Position, Tags::Player>();
-
-		for (auto entity : view)
+		const auto view = registry.view<Comps::Position, Tags::Player>();
+		for (const auto entity : view)
 		{
 			auto& position = view.get<Comps::Position>(entity);
 			save["player"]["position"][0] = position.pos.x;

@@ -7,6 +7,8 @@
 #include "comps/multitexture.h"
 #include "comps/texture.h"
 #include "comps/position.h"
+#include "comps/offset.h"
+#include "comps/camera.h"
 
 namespace Systems
 {
@@ -21,28 +23,52 @@ namespace Systems
 		window.render(texture.tex, position.toRect(texture.destSize.cast<int32_t>()));
 	}
 
+	Vect<int32_t>& getCameraOffset(entt::registry& registry)
+	{
+		// Finds camera entity and returns its offset
+		const auto view = registry.view<Tags::Camera, Comps::Offset>();
+		for (const entt::entity entity : view)
+			return view.get<Comps::Offset>(entity).offset;
+	}
+
 	void renderTextures(entt::registry& registry, Window& window)
 	{
-		auto view = registry.view<Comps::Texture, Comps::Position>();
+		const Vect<int32_t> camOffset = getCameraOffset(registry);
 
+		const auto view = registry.view<Comps::Texture, Comps::Position>();
 		for (const entt::entity entity : view)
 		{
 			auto [texture, position] = view.get<Comps::Texture, Comps::Position>(entity);
-			Systems::drawTex(texture, position.pos.cast<int32_t>(), window);
+
+			Vect<int32_t> pos = position.pos.cast<int32_t>();
+
+			// If the entity follows the camera, add camera offset
+			if (registry.all_of<Tags::FollowCamera>(entity))
+				pos += camOffset;
+
+			Systems::drawTex(texture, pos, window);
 		}
 	}
 
 	void renderMultitextures(entt::registry& registry, Window& window)
 	{
-		auto view = registry.view<Comps::MultiTexture, Comps::Position>();
+		const Vect<int32_t> camOffset = getCameraOffset(registry);
 
+		const auto view = registry.view<Comps::MultiTexture, Comps::Position>();
 		for (const entt::entity entity : view)
 		{
 			auto [multitexture, position] = view.get<Comps::MultiTexture, Comps::Position>(entity);
 
 			// Iterate through all textures and render them at their offset from the position of the object
 			for (const std::pair<Comps::Texture, Vect<int32_t>>& pair : multitexture.textures)
-				Systems::drawTex(pair.first, position.pos.cast<int32_t>() + pair.second, window);
+			{
+				Vect<int32_t> pos = position.pos.cast<int32_t>() + pair.second;
+				
+				if (registry.all_of<Tags::FollowCamera>(entity))
+					pos += camOffset;
+
+				Systems::drawTex(pair.first, pos, window);
+			}
 		}
 	}
 }

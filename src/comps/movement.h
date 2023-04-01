@@ -1,21 +1,37 @@
 #pragma once
 
-/* Objects with movement */
-
 #include "utility/vect.h"
+
 
 namespace Comps
 {
+	// Objects with movement
 	struct Movement
 	{
 		Vect<float> vel;
-		float acceleration;
+	};
+
+	// Objects with acceleration
+	struct Acceleration
+	{
+		float acc;
+	};
+
+	// Used to store the acceleration speed that the Acceleration component will be set to
+	struct StaticAcceleration
+	{
+		float acc;
+	};
+
+	// Objects with a max velocity speed
+	struct MaxSpeed
+	{
 		float maxSpeed;
 	};
 }
 
-// Movement objects that go off player input
 namespace Tags
 {
+	// Movement objects that go off player input
 	struct KeyboardInput {};
 }

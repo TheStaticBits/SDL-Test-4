@@ -11,6 +11,10 @@
 		"cookieName": "save"
 	},
 
+	"game": {
+		"startYPos": 100
+	},
+
 	"player": {
 		"image": "res/gameplay/player.png",
 		"acceleration": 1000,

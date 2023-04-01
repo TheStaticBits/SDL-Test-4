@@ -9,20 +9,20 @@
 
 namespace Systems
 {
-	void updateVelocity(entt::registry& registry, Window& window)
+	void updateKeyboardInputsVelocity(entt::registry& registry, Window& window)
 	{
-		auto view = registry.view<Comps::Movement, Tags::KeyboardInput>();
+		const auto view = registry.view<Comps::Movement, Comps::Acceleration, Tags::KeyboardInput>();
 
 		for (const entt::entity entity : view)
 		{
-			auto& movement = view.get<Comps::Movement>(entity);
+			auto [mov, acc] = view.get<Comps::Movement, Comps::Acceleration>(entity);
 
 			const int dirX = (window.getKeyState(SDLK_RIGHT) - window.getKeyState(SDLK_LEFT));
 			const int dirY = (window.getKeyState(SDLK_DOWN) - window.getKeyState(SDLK_UP));
 
 			if (dirX != 0)
 			{
-				movement.vel.x += dirX * movement.acceleration * window.getDeltaTime(); // Accelerate
+				mov.vel.x += dirX * acc.acceleration * window.getDeltaTime(); // Accelerate
 			}
 			else // Move towards zero
 				movement.vel.x += (movement.vel.x < 0 ? 1 : -1) * movement.acceleration * window.getDeltaTime();
@@ -48,7 +48,22 @@ namespace Systems
 		}
 	}
 
-	void movement(entt::registry& registry, Window& window)
+	void updateKeyboardInputVelocities(entt::registry& registry, Window& window)
+	{
+		// todo
+	}
+
+	void updateVelocities(entt::registry& registry, Window& window)
+	{
+		// todo
+	}
+
+	void capVelocities(entt::registry& registry)
+	{
+		// todo
+	}
+
+	void updateMovement(entt::registry& registry, Window& window)
 	{
 		auto view = registry.view<Comps::Movement, Comps::Position>();
 

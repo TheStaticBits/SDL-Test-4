@@ -14,6 +14,11 @@
     <ClCompile Include="src\systems\moveSystem.cpp" />
     <ClCompile Include="src\systems\renderSystem.cpp" />
     <ClCompile Include="src\helpers\playerHelpers.cpp" />
+    <ClCompile Include="src\helpers\mapGenHelpers.cpp" />
+    <ClCompile Include="src\comps\texStorage.h" />
+    <ClCompile Include="src\helpers\tileTexHelpers.cpp" />
+    <ClCompile Include="src\systems\cameraSystem.cpp" />
+    <ClCompile Include="src\systems\collisionSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\game.h" />
@@ -31,6 +36,13 @@
     <ClInclude Include="src\systems\renderSystem.h" />
     <ClInclude Include="src\helpers\playerHelpers.h" />
     <ClInclude Include="src\comps\player.h" />
+    <ClInclude Include="src\comps\layerGen.h" />
+    <ClInclude Include="src\helpers\mapGenHelpers.h" />
+    <ClInclude Include="src\helpers\tileTexHelpers.h" />
+    <ClInclude Include="src\comps\offset.h" />
+    <ClInclude Include="src\comps\camera.h" />
+    <ClInclude Include="src\systems\cameraSystem.h" />
+    <ClInclude Include="src\systems\collisionSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\gameplay\tile.png" />

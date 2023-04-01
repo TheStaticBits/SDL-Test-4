@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -17,4 +18,6 @@ namespace Helpers
 	[[nodiscard]] Comps::Texture makeTexture(std::string path, Window& window, const nlohmann::json& constants);
 
 	void destroyTextures(entt::registry& registry);
+
+	void modColor(Comps::Texture& texture, const std::vector<uint8_t>& color);
 }

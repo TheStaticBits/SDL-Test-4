@@ -5,6 +5,7 @@
 
 namespace Comps
 {
+	// Stores an SDL_Texture and its source size and destination size rectangles for rendering
 	struct Texture
 	{
 		SDL_Texture* tex;
