@@ -23,12 +23,15 @@ namespace Systems
 		window.render(texture.tex, position.toRect(texture.destSize.cast<int32_t>()));
 	}
 
-	Vect<int32_t>& getCameraOffset(entt::registry& registry)
+	const Vect<int32_t> getCameraOffset(entt::registry& registry)
 	{
 		// Finds camera entity and returns its offset
 		const auto view = registry.view<Tags::Camera, Comps::Offset>();
 		for (const entt::entity entity : view)
 			return view.get<Comps::Offset>(entity).offset;
+		
+		std::cout << "Unable to find camera entity" << std::endl;
+		return Vect<int32_t>();
 	}
 
 	void renderTextures(entt::registry& registry, Window& window)

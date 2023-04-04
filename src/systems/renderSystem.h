@@ -16,7 +16,7 @@ namespace Systems
 	void drawTex(const Comps::Texture& texture, const Vect<int32_t>& position, Window& window);
 
 	// Retrieves camera offset
-	Vect<int32_t>& getCameraOffset(entt::registry& registry);
+	const Vect<int32_t> getCameraOffset(entt::registry& registry);
 
 	void renderTextures(entt::registry& registry, Window& window);
 	void renderMultitextures(entt::registry& registry, Window& window);

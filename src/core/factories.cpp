@@ -1,7 +1,7 @@
 #include "core/factories.h"
 
 #include <iostream>
-#include "core/factories.h"
+#include <vector>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -18,6 +18,7 @@
 #include "comps/layerGen.h"
 #include "comps/texStorage.h"
 #include "comps/offset.h"
+#include "comps/camera.h"
 
 namespace Factories
 {
@@ -29,8 +30,8 @@ namespace Factories
 		registry.emplace<Comps::Texture>(entity, Helpers::makeTexture(constants["player"]["image"].get<std::string>(), window, constants));
 
 		registry.emplace<Comps::Movement>(entity, Vect<float>());
-		registry.emplace<Comps::Acceleration>(entity, 0);
-		registry.emplace<Comps::StaticAcceleration>(entity, constants["player"]["acceleration"].get<float>());
+		registry.emplace<Comps::Acceleration>(entity, Vect<float>());
+		registry.emplace<Comps::StaticAcceleration>(entity, Vect<float>(constants["player"]["acceleration"].get<float>(), 0));
 		registry.emplace<Comps::MaxSpeed>(entity, constants["player"]["maxSpeed"].get<float>());
 
 		if (!save.empty())
@@ -75,7 +76,7 @@ namespace Factories
 	entt::entity makeLayerGen(entt::registry& registry, const nlohmann::json& constants)
 	{
 		entt::entity entity = registry.create();
-		registry.emplace<Comps::LayerGen>(entity, Vect<bool>(), Vect<bool>(), constants["game"]["startYPos"].get<uint32_t>());
+		registry.emplace<Comps::LayerGen>(entity, std::vector<bool>(), std::vector<bool>(), constants["game"]["startYPos"].get<uint32_t>());
 		return entity;
 	}
 }

@@ -12,10 +12,13 @@ namespace Systems
 		// todo
 	}
 
-	const Vect<int32_t>& getPlayerPos(entt::registry& registry)
+	const Vect<int32_t> getPlayerPos(entt::registry& registry)
 	{
 		const auto view = registry.view<Comps::Position, Tags::Player>();
 		for (const entt::entity entity : view)
 			return view.get<Comps::Position>(entity).pos.cast<int32_t>();
+
+		std::cout << "Unable to find player entity" << std::endl;
+		return Vect<int32_t>(); // Oof
 	}
 }

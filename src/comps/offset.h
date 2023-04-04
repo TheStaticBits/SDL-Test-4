@@ -10,9 +10,3 @@ namespace Comps
 		Vect<int32_t> offset;
 	};
 }
-
-namespace Tags
-{
-	// Camera object's tag
-	struct Camera {};
-}

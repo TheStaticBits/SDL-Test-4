@@ -72,8 +72,8 @@ void Game::initObjects()
 	Factories::makeTileTextureStorage(registry, window, constants);
 	Factories::makeLayerGen(registry, constants);
 
-	Helpers::generateTileTextures(registry, window, constants);
-	Helpers::setupLayerGen(registry, constants);
+	// Helpers::generateTileTextures(registry, window, constants);
+	// Helpers::setupLayerGen(registry, constants);
 }
 
 
@@ -82,8 +82,11 @@ void Game::iteration()
 	window.events();
 	window.updateDeltaTime();
 
-	Systems::updateKeyboardInputsVelocity(registry, window);
-	Systems::movement(registry, window);
+	Systems::updateKeyboardInputVelocities(registry, window);
+	Systems::updateVelocities(registry, window);
+	Systems::capVelocities(registry);
+	Systems::updateMovement(registry, window);
+
 	Systems::render(registry, window);
 
 	window.update();

@@ -16,7 +16,7 @@ namespace Helpers
 		const auto view = registry.view<Comps::TextureStorage>();
 		for (const entt::entity entity : view)
 		{
-			auto& texStorage = view.get<Comps::TextureStorage>(entity);
+			/*auto& texStorage = view.get<Comps::TextureStorage>(entity);
 			for (const auto& item : constants["tiles"]["types"].items()) // Iterate through all tile types
 			{
 				Comps::Texture tex = Helpers::makeTexture(tileImgPath, window, constants); // Load texture
@@ -24,7 +24,7 @@ namespace Helpers
 				Helpers::modColor(tex, item.value()["color"].get<std::vector<uint8_t>>()); // modifies color by srcC = srcC * (color / 255)
 				
 				texStorage.textures[item.key()] = tex; // Add to texture storage
-			}
+			}*/
 		}
 	}
 }

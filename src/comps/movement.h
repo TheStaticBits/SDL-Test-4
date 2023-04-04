@@ -14,13 +14,13 @@ namespace Comps
 	// Objects with acceleration
 	struct Acceleration
 	{
-		float acc;
+		Vect<float> acc;
 	};
 
 	// Used to store the acceleration speed that the Acceleration component will be set to
 	struct StaticAcceleration
 	{
-		float acc;
+		Vect<float> acc;
 	};
 
 	// Objects with a max velocity speed
