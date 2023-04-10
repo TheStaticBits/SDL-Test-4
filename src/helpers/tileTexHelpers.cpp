@@ -17,14 +17,13 @@ namespace Helpers
 		for (const entt::entity entity : view)
 		{
 			auto& texStorage = view.get<Comps::TextureStorage>(entity);
-			const nlohmann::json tileTypes = constants["tiles"]["types"].items();
-			for (auto i = tileTypes.begin(); i != tileTypes.end(); i++) // Iterate through all tile types
+			for (auto item : constants["tiles"]["types"].items()) // Iterate through all tile types
 			{
 				Comps::Texture tex = Helpers::makeTexture(tileImgPath, window, constants); // Load texture
 
-				Helpers::modColor(tex, i.value()["color"].get<std::vector<uint8_t>>()); // modifies color by srcC = srcC * (color / 255)
+				Helpers::modColor(tex, item.value()["color"].get<std::vector<uint8_t>>()); // modifies color by srcC = srcC * (color / 255)
 				
-				texStorage.textures[i.key()] = tex; // Add to texture storage
+				texStorage.textures[item.key()] = tex; // Add to texture storage
 			}
 		}
 	}
