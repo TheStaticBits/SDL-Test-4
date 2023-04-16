@@ -21,7 +21,7 @@ namespace Helpers
 			{
 				Comps::Texture tex = Helpers::makeTexture(tileImgPath, window, constants); // Load texture
 
-				Helpers::modColor(tex, item.value()["color"].get<std::vector<uint8_t>>()); // modifies color by srcC = srcC * (color / 255)
+				Helpers::modColor(tex, item.value()["color"].get<std::vector<uint8_t>>()); // modifies color by srcC *= (colorInput / 255)
 				
 				texStorage.textures[item.key()] = tex; // Add to texture storage
 			}

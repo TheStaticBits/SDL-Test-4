@@ -72,7 +72,7 @@ void Game::initObjects()
 	Factories::makeTileTextureStorage(registry, window, constants);
 	Factories::makeLayerGen(registry, constants);
 
-	// Helpers::generateTileTextures(registry, window, constants);
+	Helpers::generateTileTextures(registry, window, constants);
 	// Helpers::setupLayerGen(registry, constants);
 }
 
