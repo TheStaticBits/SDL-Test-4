@@ -7,10 +7,6 @@
 
 namespace Systems
 {
-	// Archive
-	void updateKeyboardInputsVelocity(entt::registry& registry, Window& window);
-
-
 	// Updates entities which move according to keyboard input
 	void updateKeyboardInputVelocities(entt::registry& registry, Window& window);
 
