@@ -19,6 +19,7 @@ namespace Helpers
 			// Find texture width, divide window width by texture width to get the amount of tiles per layer
 			int32_t texWidth = (texStorage.textures.begin()->second).destSize.xCast<int32_t>();
 			mapWidth /= texWidth;
+			break;
 		}
 
 		const auto viewLayerGen = registry.view<Comps::LayerGen>();

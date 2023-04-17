@@ -23,6 +23,7 @@
 
 	"tiles": {
 		"image": "res/gameplay/tile.png",
+		"borderWidth": 2,
 
 		"types": {
 			"normal": {
