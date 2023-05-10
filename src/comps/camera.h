@@ -1,7 +1,11 @@
 #pragma once
 
-namespace Tags
+namespace Comps
 {
 	// Tag for camera entity
-	struct Camera {};
+	struct Camera 
+	{
+		float followSpeed;
+		Vect<float> offset;
+	};
 }

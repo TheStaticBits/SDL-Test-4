@@ -33,6 +33,7 @@ namespace Factories
 		registry.emplace<Comps::Acceleration>(entity, Vect<float>());
 		registry.emplace<Comps::StaticAcceleration>(entity, Vect<float>(constants["player"]["acceleration"].get<float>(), 0));
 		registry.emplace<Comps::MaxSpeed>(entity, constants["player"]["maxSpeed"].get<float>());
+		registry.emplace<Comps::Gravity>(entity, constants["player"]["gravity"].get<float>());
 
 		if (!save.empty())
 			registry.emplace<Comps::Position>(entity, Vect<float>(save["player"]["position"]));
@@ -47,12 +48,13 @@ namespace Factories
 		return entity;
 	}
 
-	entt::entity makeCamera(entt::registry& registry)
+	entt::entity makeCamera(entt::registry& registry, const nlohmann::json& constants)
 	{
 		entt::entity entity = registry.create();
 		
-		registry.emplace<Comps::Offset>(entity, Vect<int32_t>());
-		registry.emplace<Tags::Camera>(entity);
+		registry.emplace<Comps::Offset>(entity, Vect<float>());
+		registry.emplace<Comps::Camera>(entity, constants["game"]["cameraFollowSpeed"].get<float>(), 
+											    Vect<float>(constants["game"]["cameraOffset"]));
 		
 		return entity;
 	}

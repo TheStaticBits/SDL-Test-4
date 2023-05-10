@@ -10,9 +10,11 @@ namespace Systems
 	// Updates entities which move according to keyboard input
 	void updateKeyboardInputVelocities(entt::registry& registry, Window& window);
 
+	// Updates entities affected by gravity
+	void updateGravity(entt::registry& registry);
+
 	// Updates velocity according to the values stored in acceleration
 	void updateVelocities(entt::registry& registry, Window& window);
-
 	// Caps velocity to MaxSpeed for entities with a MaxSpeed
 	void capVelocities(entt::registry& registry);
 

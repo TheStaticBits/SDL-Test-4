@@ -14,7 +14,7 @@ namespace Systems
 		const int dirX = (window.getKeyState(SDLK_RIGHT) - window.getKeyState(SDLK_LEFT));
 		const int dirY = (window.getKeyState(SDLK_DOWN) - window.getKeyState(SDLK_UP));
 
-		auto view = registry.view<Comps::Movement, Comps::Acceleration, Comps::StaticAcceleration, Tags::KeyboardInput>();
+		const auto view = registry.view<Comps::Movement, Comps::Acceleration, Comps::StaticAcceleration, Tags::KeyboardInput>();
 		for (const entt::entity entity : view)
 		{
 			auto [mov, acceleration, staticAcc] = view.get<Comps::Movement, Comps::Acceleration, Comps::StaticAcceleration>(entity);
@@ -44,9 +44,19 @@ namespace Systems
 		}
 	}
 
+	void updateGravity(entt::registry& registry)
+	{
+		const auto view = registry.view<Comps::Gravity, Comps::Acceleration>();
+		for (const entt::entity entity : view)
+		{
+			auto [gravity, acc] = view.get<Comps::Gravity, Comps::Acceleration>(entity);
+			acc.acc.y = gravity.strength;
+		}
+	}
+
 	void updateVelocities(entt::registry& registry, Window& window)
 	{
-		auto view = registry.view<Comps::Movement, Comps::Acceleration>();
+		const auto view = registry.view<Comps::Movement, Comps::Acceleration>();
 		for (const entt::entity entity : view)
 		{
 			auto [mov, acceleration] = view.get<Comps::Movement, Comps::Acceleration>(entity);
@@ -57,7 +67,7 @@ namespace Systems
 
 	void capVelocities(entt::registry& registry)
 	{
-		auto view = registry.view<Comps::Movement, Comps::MaxSpeed>();
+		const auto view = registry.view<Comps::Movement, Comps::MaxSpeed>();
 		for (const entt::entity entity : view)
 		{
 			auto [mov, max] = view.get<Comps::Movement, Comps::MaxSpeed>(entity);
@@ -73,7 +83,7 @@ namespace Systems
 
 	void updateMovement(entt::registry& registry, Window& window)
 	{
-		auto view = registry.view<Comps::Movement, Comps::Position>();
+		const auto view = registry.view<Comps::Movement, Comps::Position>();
 		for (const entt::entity entity : view)
 		{
 			auto [movement, position] = view.get<Comps::Movement, Comps::Position>(entity);

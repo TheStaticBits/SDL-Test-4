@@ -20,6 +20,7 @@
 
 #include "systems/moveSystem.h"
 #include "systems/renderSystem.h"
+#include "systems/cameraSystem.h"
 
 #ifdef __EMSCRIPTEN__
 #include "emscripten.h"
@@ -67,7 +68,7 @@ void Game::initSDL()
 void Game::initObjects()
 {
 	Factories::makePlayer(registry, window, constants, save.getData());
-	Factories::makeCamera(registry);
+	Factories::makeCamera(registry, constants);
 
 	Factories::makeTileTextureStorage(registry, window, constants);
 	Factories::makeLayerGen(registry, constants);
@@ -83,10 +84,12 @@ void Game::iteration()
 	window.updateDeltaTime();
 
 	Systems::updateKeyboardInputVelocities(registry, window);
+	Systems::updateGravity(registry);
 	Systems::updateVelocities(registry, window);
 	Systems::capVelocities(registry);
 	Systems::updateMovement(registry, window);
 
+	Systems::updateCameraMovement(registry);
 	Systems::render(registry, window);
 
 	window.update();

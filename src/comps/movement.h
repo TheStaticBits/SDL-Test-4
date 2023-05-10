@@ -28,6 +28,12 @@ namespace Comps
 	{
 		float maxSpeed;
 	};
+
+	// Objects affected by gravity
+	struct Gravity
+	{
+		float strength;
+	};
 }
 
 namespace Tags

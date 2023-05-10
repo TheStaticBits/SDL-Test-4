@@ -12,13 +12,16 @@
 	},
 
 	"game": {
-		"startYPos": 100
+		"startYPos": 100,
+		"cameraFollowSpeed": 20,
+		"cameraOffset": [-400, -400]
 	},
 
 	"player": {
 		"image": "res/gameplay/player.png",
 		"acceleration": 1000,
-		"maxSpeed": 450
+		"maxSpeed": 450,
+		"gravity": 300
 	},
 
 	"tiles": {

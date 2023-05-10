@@ -26,9 +26,9 @@ namespace Systems
 	const Vect<int32_t> getCameraOffset(entt::registry& registry)
 	{
 		// Finds camera entity and returns its offset
-		const auto view = registry.view<Tags::Camera, Comps::Offset>();
+		const auto view = registry.view<Comps::Camera, Comps::Offset>();
 		for (const entt::entity entity : view)
-			return view.get<Comps::Offset>(entity).offset;
+			return view.get<Comps::Offset>(entity).offset.cast<int32_t>();
 		
 		std::cout << "Unable to find camera entity" << std::endl;
 		return Vect<int32_t>();
@@ -63,9 +63,9 @@ namespace Systems
 			auto [multitexture, position] = view.get<Comps::MultiTexture, Comps::Position>(entity);
 
 			// Iterate through all textures and render them at their offset from the position of the object
-			for (const std::pair<Comps::Texture, Vect<int32_t>>& pair : multitexture.textures)
+			for (const std::pair<Comps::Texture, Comps::Offset>& pair : multitexture.textures)
 			{
-				Vect<int32_t> pos = position.pos.cast<int32_t>() + pair.second;
+				Vect<int32_t> pos = (position.pos + pair.second.offset).cast<int32_t>();
 				
 				if (registry.all_of<Tags::FollowCamera>(entity))
 					pos += camOffset;
