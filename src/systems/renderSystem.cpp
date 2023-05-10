@@ -34,43 +34,37 @@ namespace Systems
 		return Vect<int32_t>();
 	}
 
+	void renderEntity(entt::registry& registry, Window& window, const entt::entity entity, const Comps::Texture& texture, Vect<int32_t> pos)
+	{
+		// If the entity follows the camera, add camera offset
+		if (registry.all_of<Tags::FollowCamera>(entity))
+			pos += getCameraOffset(registry);
+
+		Systems::drawTex(texture, pos, window);
+	}
+
 	void renderTextures(entt::registry& registry, Window& window)
 	{
-		const Vect<int32_t> camOffset = getCameraOffset(registry);
-
 		const auto view = registry.view<Comps::Texture, Comps::Position>();
 		for (const entt::entity entity : view)
 		{
 			auto [texture, position] = view.get<Comps::Texture, Comps::Position>(entity);
-
-			Vect<int32_t> pos = position.pos.cast<int32_t>();
-
-			// If the entity follows the camera, add camera offset
-			if (registry.all_of<Tags::FollowCamera>(entity))
-				pos += camOffset;
-
-			Systems::drawTex(texture, pos, window);
+			renderEntity(registry, window, entity, texture, position.pos.cast<int32_t>());
 		}
 	}
 
 	void renderMultitextures(entt::registry& registry, Window& window)
 	{
-		const Vect<int32_t> camOffset = getCameraOffset(registry);
-
 		const auto view = registry.view<Comps::MultiTexture, Comps::Position>();
 		for (const entt::entity entity : view)
 		{
 			auto [multitexture, position] = view.get<Comps::MultiTexture, Comps::Position>(entity);
 
 			// Iterate through all textures and render them at their offset from the position of the object
-			for (const std::pair<Comps::Texture, Vect<int32_t>>& pair : multitexture.textures)
+			for (const std::pair<Comps::Texture, Vect<int32_t>>& texPair : multitexture.textures)
 			{
-				Vect<int32_t> pos = position.pos.cast<int32_t>() + pair.second;
-				
-				if (registry.all_of<Tags::FollowCamera>(entity))
-					pos += camOffset;
-
-				Systems::drawTex(pair.first, pos, window);
+				Vect<int32_t> pos = position.pos.cast<int32_t>() + texPair.second; // applying texture offset to base position
+				renderEntity(registry, window, entity, texPair.first, pos);
 			}
 		}
 	}
