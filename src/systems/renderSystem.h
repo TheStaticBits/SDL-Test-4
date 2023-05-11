@@ -15,8 +15,7 @@ namespace Systems
 	// Renders a single texture object at a given position
 	void drawTex(const Comps::Texture& texture, const Vect<int32_t>& position, Window& window);
 
-	// Retrieves camera offset
-	const Vect<int32_t> getCameraOffset(entt::registry& registry);
+	void renderEntity(entt::registry& registry, Window& window, const entt::entity entity, const Comps::Texture& texture, Vect<int32_t> pos);
 
 	void renderTextures(entt::registry& registry, Window& window);
 	void renderMultitextures(entt::registry& registry, Window& window);

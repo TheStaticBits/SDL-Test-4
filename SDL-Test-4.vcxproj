@@ -219,7 +219,6 @@
     <None Include="data\constants.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\comps\texStorage.h" />
     <ClCompile Include="src\core\game.cpp" />
     <ClCompile Include="src\systems\cameraSystem.cpp" />
     <ClCompile Include="src\helpers\playerHelpers.cpp" />
@@ -242,6 +241,7 @@
     <ClInclude Include="src\comps\player.h" />
     <ClInclude Include="src\comps\position.h" />
     <ClInclude Include="src\comps\size.h" />
+    <ClInclude Include="src\comps\texStorage.h" />
     <ClInclude Include="src\comps\texture.h" />
     <ClInclude Include="src\comps\layerGen.h" />
     <ClInclude Include="src\core\game.h" />
@@ -255,6 +255,7 @@
     <ClInclude Include="src\systems\collisionSystem.h" />
     <ClInclude Include="src\systems\moveSystem.h" />
     <ClInclude Include="src\systems\renderSystem.h" />
+    <ClInclude Include="src\utility\enttUtility.h" />
     <ClInclude Include="src\utility\vect.h" />
     <ClInclude Include="src\core\window.h" />
   </ItemGroup>

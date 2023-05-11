@@ -45,7 +45,7 @@ namespace Helpers
 		// Destroy all textures in each multitexture component
 		const auto viewMultitextures = registry.view<Comps::MultiTexture>();
 		for (const entt::entity entity : viewMultitextures)
-			for (const std::pair<Comps::Texture, Vect<int32_t>>& pair : viewMultitextures.get<Comps::MultiTexture>(entity).textures)
+			for (const std::pair<Comps::Texture, Comps::Offset>& pair : viewMultitextures.get<Comps::MultiTexture>(entity).textures)
 				SDL_DestroyTexture(pair.first.tex);
 	}
 

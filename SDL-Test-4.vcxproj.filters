@@ -15,7 +15,6 @@
     <ClCompile Include="src\systems\renderSystem.cpp" />
     <ClCompile Include="src\helpers\playerHelpers.cpp" />
     <ClCompile Include="src\helpers\mapGenHelpers.cpp" />
-    <ClCompile Include="src\comps\texStorage.h" />
     <ClCompile Include="src\helpers\tileTexHelpers.cpp" />
     <ClCompile Include="src\systems\cameraSystem.cpp" />
     <ClCompile Include="src\systems\collisionSystem.cpp" />
@@ -43,6 +42,8 @@
     <ClInclude Include="src\comps\camera.h" />
     <ClInclude Include="src\systems\cameraSystem.h" />
     <ClInclude Include="src\systems\collisionSystem.h" />
+    <ClInclude Include="src\utility\enttUtility.h" />
+    <ClInclude Include="src\comps\texStorage.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\gameplay\tile.png" />

@@ -13,8 +13,9 @@
 
 	"game": {
 		"startYPos": 100,
-		"cameraFollowSpeed": 20,
-		"cameraOffset": [-400, -400]
+		"cameraFollowSpeed": 5,
+		"cameraOffset": [-400, -400],
+		"lockedDirs": [true, false]
 	},
 
 	"player": {
@@ -26,6 +27,7 @@
 
 	"tiles": {
 		"image": "res/gameplay/tile.png",
+		"borderWidth": 2,
 
 		"types": {
 			"normal": {

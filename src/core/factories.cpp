@@ -44,6 +44,7 @@ namespace Factories
 		registry.emplace<Tags::KeyboardInput>(entity);
 		registry.emplace<Tags::FollowCamera>(entity);
 		registry.emplace<Tags::Player>(entity);
+		registry.emplace<Tags::CameraFollow>(entity);
 
 		return entity;
 	}
@@ -54,7 +55,8 @@ namespace Factories
 		
 		registry.emplace<Comps::Offset>(entity, Vect<float>());
 		registry.emplace<Comps::Camera>(entity, constants["game"]["cameraFollowSpeed"].get<float>(), 
-											    Vect<float>(constants["game"]["cameraOffset"]));
+												Vect<float>(constants["game"]["cameraOffset"]), 
+												Vect<bool>(constants["game"]["lockedDirs"]));
 		
 		return entity;
 	}
