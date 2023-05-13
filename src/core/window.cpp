@@ -43,7 +43,7 @@ void Window::init(const nlohmann::json& constants)
 	if (constants["display"]["vsync"]) flags |= SDL_RENDERER_PRESENTVSYNC; // Vsync
 
 	// Creating window and renderer
-	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, size.x, size.y, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, flags);
 }
 

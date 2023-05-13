@@ -13,11 +13,11 @@ namespace Helpers
 	{
 		std::string tileImgPath = constants["tiles"]["image"].get<std::string>();
 
-		const auto view = registry.view<Comps::TextureStorage>();
+		const auto view = registry.view<Comps::TextureStorage, Tags::TileTextures>();
 		for (const entt::entity entity : view)
 		{
 			auto& texStorage = view.get<Comps::TextureStorage>(entity);
-			for (auto item : constants["tiles"]["types"].items()) // Iterate through all tile types
+			for (const auto& item : constants["tiles"]["types"].items()) // Iterate through all tile types
 			{
 				Comps::Texture tex = Helpers::makeTexture(tileImgPath, window, constants); // Load texture
 

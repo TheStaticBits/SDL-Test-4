@@ -20,16 +20,17 @@ namespace Systems
 		renderMultitextures(registry, window);
 	}
 
-	void drawTex(const Comps::Texture& texture, const Vect<int32_t>& position, Window& window)
+	void drawTex(const Comps::Texture& texture, const Vect<uint32_t>& position, Window& window)
 	{
-		window.render(texture.tex, Vect<int32_t>::toRect(position, texture.destSize.cast<int32_t>()));
+		window.render(texture.tex, Vect<uint32_t>::toRect(texture.offset, texture.srcSize),
+								   Vect<uint32_t>::toRect(position, texture.destSize));
 	}
 
-	void renderEntity(entt::registry& registry, Window& window, const entt::entity entity, const Comps::Texture& texture, Vect<int32_t> pos)
+	void renderEntity(entt::registry& registry, Window& window, const entt::entity entity, const Comps::Texture& texture, Vect<uint32_t> pos)
 	{
 		// If the entity follows the camera, add camera offset
 		if (registry.all_of<Tags::FollowCamera>(entity))
-			pos -= Utility::getEnttComp<Comps::Offset, Comps::Camera>(registry).offset.cast<int32_t>(); // Gets camera offset
+			pos -= Utility::getEnttComp<Comps::Offset, Comps::Camera>(registry).offset.cast<uint32_t>(); // Gets camera offset
 
 		Systems::drawTex(texture, pos, window);
 	}
@@ -40,7 +41,7 @@ namespace Systems
 		for (const entt::entity entity : view)
 		{
 			auto [texture, position] = view.get<Comps::Texture, Comps::Position>(entity);
-			Systems::renderEntity(registry, window, entity, texture, position.pos.cast<int32_t>());
+			Systems::renderEntity(registry, window, entity, texture, position.pos.cast<uint32_t>());
 		}
 	}
 
@@ -54,7 +55,7 @@ namespace Systems
 			// Iterate through all textures and render them at their offset from the position of the object
 			for (const std::pair<Comps::Texture, Comps::Offset>& texPair : multitexture.textures)
 			{
-				Vect<int32_t> pos = (position.pos + texPair.second.offset).cast<int32_t>(); // applying texture offset to base position
+				Vect<uint32_t> pos = (position.pos + texPair.second.offset).cast<uint32_t>(); // applying texture offset to base position
 				Systems::renderEntity(registry, window, entity, texPair.first, pos);
 			}
 		}

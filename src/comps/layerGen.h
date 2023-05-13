@@ -8,8 +8,7 @@ namespace Comps
 	// Stores vectors used in generation to see what tile spots are taken up
 	struct LayerGen
 	{
-		std::vector<bool> nextLayer;
-		std::vector<bool> prevLayer;
+		std::vector<std::vector<bool>> layers;
 
 		uint32_t startingY;
 	};

@@ -1,7 +1,7 @@
 {
 	"display": {
 		"title": "SDL-Test-4",
-		"size": [ 800, 800 ],
+		"size": [ 800, 600 ],
 		"scale": 2.0,
 		"vsync": true
 	},
@@ -13,8 +13,8 @@
 
 	"game": {
 		"startYPos": 100,
-		"cameraFollowSpeed": 5,
-		"cameraOffset": [-400, -400],
+		"cameraFollowSpeed": 10,
+		"cameraOffset": [-400, -200],
 		"lockedDirs": [true, false]
 	},
 
@@ -22,7 +22,7 @@
 		"image": "res/gameplay/player.png",
 		"acceleration": 1000,
 		"maxSpeed": 450,
-		"gravity": 300
+		"gravity": 20
 	},
 
 	"tiles": {
@@ -30,10 +30,31 @@
 		"borderWidth": 2,
 
 		"types": {
-			"normal": {
-				"chance": 100,
-				"color": [ 255, 255, 255 ],
-				"icon": ""
+			"normal":      { "chance": 50, "color": [ 255, 255, 255 ], "icon": "", "layout": "square"           },
+			"vertDouble":  { "chance": 25, "color": [ 255, 0, 0 ],     "icon": "", "layout": "verticalDouble"   },
+			"horizDouble": { "chance": 25, "color": [ 0, 255, 0],      "icon": "", "layout": "horizontalDouble" }
+		},
+
+		"layouts": {
+			"normal": { 
+				"images": [ { "srcRect": [ [ 0, 0 ], [ 40, 40 ] ], "offset": [ 0, 0 ] } ],
+				"takesUpTiles": [ [ 0, 0 ] ]
+			},
+			"verticalDouble": {
+				"images": [ { "srcRect": [ [ 0, 0  ], [ 40, 20 ] ], "offset": [ 0, 0  ] },
+							{ "srcRect": [ [ 0, 10 ], [ 40, 20 ] ], "offset": [ 0, 20 ] },
+							{ "srcRect": [ [ 0, 10 ], [ 40, 20 ] ], "offset": [ 0, 40 ] },
+							{ "srcRect": [ [ 0, 20 ], [ 40, 20 ] ], "offset": [ 0, 60 ] } ],
+
+				"takesUpTiles": [ [ 0, 0 ], [ 0, 1 ] ]
+			},
+			"horizontalDouble": {
+				"images": [ { "srcRect": [ [ 0,  0 ], [ 20, 40 ] ], "offset": [ 0,  0 ] },
+							{ "srcRect": [ [ 10, 0 ], [ 20, 40 ] ], "offset": [ 20, 0 ] },
+							{ "srcRect": [ [ 10, 0 ], [ 20, 40 ] ], "offset": [ 40, 0 ] },
+							{ "srcRect": [ [ 20, 0 ], [ 20, 40 ] ], "offset": [ 60, 0 ] } ],
+
+				"takesUpTiles": [ [ 0, 0 ], [ 1, 0 ] ]
 			}
 		}
 	}

@@ -9,7 +9,9 @@ namespace Comps
 	struct Texture
 	{
 		SDL_Texture* tex;
-		Vect<uint32_t> src;
+		Vect<uint32_t> offset;
+		Vect<uint32_t> srcSize;
+
 		Vect<uint32_t> destSize;
 	};
 }

@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
+#include <time.h>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -63,6 +65,8 @@ void Game::initSDL()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	IMG_Init(IMG_INIT_PNG);
+
+	srand(time(NULL));
 }
 
 void Game::initObjects()
@@ -72,6 +76,8 @@ void Game::initObjects()
 
 	Factories::makeTileTextureStorage(registry, window, constants);
 	Factories::makeLayerGen(registry, constants);
+
+	Factories::makeTile(registry, window, constants, { 0, 0 }, { 0, 0 });
 
 	Helpers::generateTileTextures(registry, window, constants);
 	// Helpers::setupLayerGen(registry, constants);

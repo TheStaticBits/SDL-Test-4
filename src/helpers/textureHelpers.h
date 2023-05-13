@@ -20,4 +20,7 @@ namespace Helpers
 	void destroyTextures(entt::registry& registry);
 
 	void modColor(Comps::Texture& texture, const std::vector<uint8_t>& color);
+
+
+	const uint32_t getTextureScale(const nlohmann::json& constants);
 }

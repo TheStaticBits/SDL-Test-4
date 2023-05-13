@@ -14,3 +14,8 @@ namespace Comps
 		std::unordered_map<std::string, Comps::Texture> textures;
 	};
 }
+
+namespace Tags
+{
+	struct TileTextures {};
+}
