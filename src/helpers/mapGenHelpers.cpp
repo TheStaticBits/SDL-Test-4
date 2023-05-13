@@ -19,7 +19,7 @@ namespace Helpers
 			auto& texStorage = viewTexStorage.get<Comps::TextureStorage>(entity);
 
 			// Find texture width, divide window width by texture width to get the amount of tiles per layer
-			int32_t texWidth = (texStorage.textures.begin()->second).size.xCast<int32_t>();
+			int32_t texWidth = (texStorage.textures.begin()->second).destSize.xCast<int32_t>();
 			mapWidth /= texWidth;
 			break;
 		}

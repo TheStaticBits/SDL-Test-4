@@ -66,7 +66,7 @@ void Game::initSDL()
 	SDL_Init(SDL_INIT_EVERYTHING);
 	IMG_Init(IMG_INIT_PNG);
 
-	srand(time(NULL));
+	srand(static_cast<uint32_t>(time(0)));
 }
 
 void Game::initObjects()
@@ -77,10 +77,11 @@ void Game::initObjects()
 	Factories::makeTileTextureStorage(registry, window, constants);
 	Factories::makeLayerGen(registry, constants);
 
-	Factories::makeTile(registry, window, constants, { 0, 0 }, { 0, 0 });
-
 	Helpers::generateTileTextures(registry, window, constants);
-	// Helpers::setupLayerGen(registry, constants);
+	Helpers::setupLayerGen(registry, constants);
+
+	Factories::makeTile(registry, window, constants, { 0, 0 }, { 0, 0 });
+	Factories::makeTile(registry, window, constants, { 0, 0 }, { 80, 0 });
 }
 
 

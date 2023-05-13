@@ -36,7 +36,7 @@
 		},
 
 		"layouts": {
-			"normal": { 
+			"square": { 
 				"images": [ { "srcRect": [ [ 0, 0 ], [ 40, 40 ] ], "offset": [ 0, 0 ] } ],
 				"takesUpTiles": [ [ 0, 0 ] ]
 			},

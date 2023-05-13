@@ -89,8 +89,10 @@ namespace Factories
 			else randomTile -= chance;
 		}
 
-		std::string layoutType = constants["tiles"]["types"][tileType]["layout"].get<std::string>();
+		const std::string layoutType = constants["tiles"]["types"][tileType]["layout"].get<std::string>();
 		const Comps::TextureStorage& tileTextures = Utility::getEnttComp<Comps::TextureStorage, Tags::TileTextures>(registry);
+
+		const uint32_t scale = Helpers::getTextureScale(constants);
 
 		// Generating individual tile textures for the Multitexture object
 		std::vector<std::pair<Comps::Texture, Comps::Offset>> texPairs;
@@ -98,12 +100,13 @@ namespace Factories
 		{
 			Comps::Texture copy = tileTextures.textures.at(tileType);
 
-			copy.size =   Vect<uint32_t>(imageData["srcRect"][1]) * Helpers::getTextureScale(constants);
-			copy.offset = Vect<uint32_t>(imageData["srcRect"][0]) * Helpers::getTextureScale(constants);
+			copy.srcSize = Vect<uint32_t>(imageData["srcRect"][1]);
+			copy.offset =  Vect<uint32_t>(imageData["srcRect"][0]); // src rect offset
+			copy.destSize = copy.srcSize * scale; // draw size
 
-			Comps::Offset offset { Vect<float>(imageData["offset"]) };
+			Comps::Offset imageOffset { Vect<float>(imageData["offset"]) * static_cast<float>(scale) }; // offset from the position of the object
 			
-			texPairs.push_back(std::pair<Comps::Texture, Comps::Offset>(copy, offset));
+			texPairs.push_back(std::pair<Comps::Texture, Comps::Offset>(copy, imageOffset));
 		}
 
 		registry.emplace<Comps::MultiTexture>(entity, texPairs);
