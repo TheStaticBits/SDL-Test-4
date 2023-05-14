@@ -10,6 +10,11 @@ namespace Comps
 	{
 		std::vector<std::vector<bool>> layers;
 
-		uint32_t startingY;
+		uint32_t yPos;
 	};
+}
+
+namespace Tags
+{
+	struct LayerGen {};
 }

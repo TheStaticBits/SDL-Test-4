@@ -12,7 +12,6 @@
 	},
 
 	"game": {
-		"startYPos": 100,
 		"cameraFollowSpeed": 10,
 		"cameraOffset": [ -400, -200 ],
 		"lockedDirs": [ true, false ]
@@ -23,17 +22,17 @@
 		"acceleration": 1000,
 		"maxSpeed": 450,
 		"gravity": 0,
-		"startingPos": [ 0, 0 ]
+		"startingPos": [ 360, 0 ]
 	},
 
 	"tiles": {
 		"image": "res/gameplay/tile.png",
-		"borderWidth": 2,
+		"size": 40,
 
 		"types": {
 			"normal":      { "chance": 50, "color": [ 255, 255, 255 ], "icon": "", "layout": "square"           },
-			"vertDouble":  { "chance": 25, "color": [ 255, 0, 0 ],     "icon": "", "layout": "verticalDouble"   },
-			"horizDouble": { "chance": 25, "color": [ 0, 255, 0],      "icon": "", "layout": "horizontalDouble" }
+			"vertDouble":  { "chance": 25, "color": [ 255, 75, 75 ],   "icon": "", "layout": "verticalDouble"   },
+			"horizDouble": { "chance": 25, "color": [ 75, 255, 75 ],   "icon": "", "layout": "horizontalDouble" }
 		},
 
 		"layouts": {
@@ -58,5 +57,9 @@
 				"takesUpTiles": [ [ 0, 0 ], [ 1, 0 ] ]
 			}
 		}
+	},
+
+	"world": {
+		"startY": 100
 	}
 }

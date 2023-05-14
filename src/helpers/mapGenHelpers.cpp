@@ -6,62 +6,88 @@
 #include "comps/texStorage.h"
 #include "core/factories.h"
 
+#include "helpers/textureHelpers.h"
+
+#include "utility/enttUtility.h"
+
 namespace Helpers
 {
 	void setupLayerGen(entt::registry& registry, const nlohmann::json& constants)
 	{
-		int32_t mapWidth = constants["display"]["size"][0].get<int32_t>();
-
-		// Finding map width based on tile texture sizes
-		const auto viewTexStorage = registry.view<Comps::TextureStorage>();
-		for (const entt::entity entity : viewTexStorage)
-		{
-			auto& texStorage = viewTexStorage.get<Comps::TextureStorage>(entity);
-
-			// Find texture width, divide window width by texture width to get the amount of tiles per layer
-			int32_t texWidth = (texStorage.textures.begin()->second).destSize.xCast<int32_t>();
-			mapWidth /= texWidth;
-			break;
-		}
+		uint32_t mapWidth = constants["display"]["size"][0].get<uint32_t>() / constants["tiles"]["size"].get<int32_t>();
 
 		// Resizing map generation layer vectors
-		const auto viewLayerGen = registry.view<Comps::LayerGen>();
-		for (const entt::entity entity : viewLayerGen)
-		{
-			auto& layerGen = viewLayerGen.get<Comps::LayerGen>(entity);
+		Comps::LayerGen* layerGen = Helpers::getLayerGen(registry);
+		layerGen->layers.resize(getTallestTileHeight(constants)); // Resize height of the 2D array
 
-			layerGen.layers.resize(getTallestTileHeight(constants)); // Resize height of the 2D array
-
-			for (std::vector<bool>& layer : layerGen.layers)
-				layer.resize(mapWidth, false); // Setting all layers to false by default and the width of the map
-		}
+		for (std::vector<bool>& layer : layerGen->layers)
+			layer.resize(mapWidth, false); // Setting all layers to false by default and the width of the map
 	}
 
 	void startNextLayerGen(entt::registry& registry)
 	{
-		const auto view = registry.view<Comps::LayerGen>();
-		for (const entt::entity entity : view)
+		Comps::LayerGen* layerGen = Helpers::getLayerGen(registry);
+
+		int32_t mapWidth = layerGen->layers[0].size();
+
+		// Removes the first layer (as it has finished generating)
+		layerGen->layers.erase(layerGen->layers.begin());
+
+		// Add new layer with same width and all initially false
+		layerGen->layers.push_back(std::vector<bool>());
+		layerGen->layers[layerGen->layers.size() - 1].resize(mapWidth, false);
+	}
+
+	void genLayer(entt::registry& registry, Window& window, const nlohmann::json& constants)
+	{
+		Comps::LayerGen* layerGen = Helpers::getLayerGen(registry);
+
+		const uint32_t tileSize = constants["tiles"]["size"].get<uint32_t>() * getTextureScale(constants);
+
+		for (uint32_t xCoord = 0; xCoord < layerGen->layers[0].size(); xCoord++)
+			if (!layerGen->layers[0][xCoord]) // If space not taken up by a tile yet
+				Factories::makeTile(registry, window, constants, xCoord, Vect<uint32_t>(xCoord * tileSize, layerGen->yPos));
+
+		// Increment the layer's y position
+		layerGen->yPos += tileSize;
+	}
+
+	void fillSpots(entt::registry& registry, const uint32_t xCoord, const nlohmann::json& offsets)
+	{
+		Comps::LayerGen* layerGen = Helpers::getLayerGen(registry);
+
+		// Iterating through all offsets from (xCoord, 0)
+		// (generating tiles are always going to be in the first array of layerGen->layers, so y is always 0)
+		// and setting spaces that were taken up to true
+		for (const auto& coordOffset : offsets)
 		{
-			auto& layerGen = view.get<Comps::LayerGen>(entity);
-			int32_t mapWidth = layerGen.layers[0].size();
+			Vect<uint32_t> offset(coordOffset);
+			offset.x += xCoord;
 
-			// Removes the first layer (as it has finished generating)
-			layerGen.layers.erase(layerGen.layers.begin());
+			if (offset.x >= layerGen->layers[0].size())
+				continue; // If offset is out of bounds, skip
 
-			// Add new layer with same width and all initially false
-			layerGen.layers.push_back(std::vector<bool>());
-			layerGen.layers[layerGen.layers.size() - 1].resize(mapWidth, false);
+			layerGen->layers[offset.y][offset.x] = true;
 		}
 	}
 
-	void genLayer(entt::registry& registry, const nlohmann::json& constants)
+	const bool spotsAvailable(entt::registry& registry, const uint32_t xCoord, const nlohmann::json& offsets)
 	{
-		// todo
-	}
+		Comps::LayerGen* layerGen = Helpers::getLayerGen(registry);
 
-	void fillSpots(entt::registry& registry, const Vect<uint32_t>& coords, const nlohmann::json& offsets)
-	{
-		// todo
+		for (const auto& coordOffset : offsets)
+		{
+			Vect<uint32_t> offset(coordOffset);
+			offset.x += xCoord;
+
+			if (offset.x >= layerGen->layers[0].size())
+				continue;
+
+			if (layerGen->layers[offset.y][offset.x])
+				return false;
+		}
+
+		return true;
 	}
 
 	const uint32_t getTallestTileHeight(const nlohmann::json& constants)
@@ -80,5 +106,10 @@ namespace Helpers
 		}
 
 		return height;
+	}
+
+	Comps::LayerGen* getLayerGen(entt::registry& registry)
+	{
+		return Utility::getEnttComp<Comps::LayerGen, Tags::LayerGen>(registry);
 	}
 }

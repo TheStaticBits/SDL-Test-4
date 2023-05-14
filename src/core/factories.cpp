@@ -66,31 +66,23 @@ namespace Factories
 		return entity;
 	}
 
-	entt::entity makeTile(entt::registry& registry, Window& window, const nlohmann::json& constants, const Vect<uint32_t> coords, const Vect<int32_t> pos)
+	entt::entity makeTile(entt::registry& registry, Window& window, const nlohmann::json& constants, const uint32_t xCoord, const Vect<uint32_t> pos)
 	{
 		entt::entity entity = registry.create();
 
 		registry.emplace<Comps::Position>(entity, pos.cast<float>());
 
-		uint32_t randomTile = rand() % 100 + 1;
-		std::string tileType = "";
+		std::string tileType, layoutType;
+		nlohmann::json tileHitboxCoords;
 
-		// Choosing a tile
-		for (const auto& typeData : constants["tiles"]["types"].items())
-		{
-			uint32_t chance = typeData.value()["chance"].get<uint32_t>();
+		// Generates a random tile continuously until a tile that does not overlap other tiles is found
+		do {
+			tileType = randomTile(constants);
+			layoutType = constants["tiles"]["types"][tileType]["layout"].get<std::string>();
+			tileHitboxCoords = constants["tiles"]["layouts"][layoutType]["takesUpTiles"];
+		}  while (!Helpers::spotsAvailable(registry, xCoord, tileHitboxCoords));
 
-			if (randomTile <= chance)
-			{
-				tileType = typeData.key();
-				break;
-			}
-			else randomTile -= chance;
-		}
-
-		const std::string layoutType = constants["tiles"]["types"][tileType]["layout"].get<std::string>();
 		const Comps::TextureStorage* tileTextures = Utility::getEnttComp<Comps::TextureStorage, Tags::TileTextures>(registry);
-
 		const uint32_t scale = Helpers::getTextureScale(constants);
 
 		// Generating individual tile textures for the Multitexture object
@@ -103,14 +95,16 @@ namespace Factories
 			copy.offset =  Vect<uint32_t>(imageData["srcRect"][0]); // src rect offset
 			copy.destSize = copy.srcSize * scale; // draw size
 
-			Comps::Offset imageOffset { Vect<float>(imageData["offset"]) * static_cast<float>(scale) }; // offset from the position of the object
+			// offset from the position of the object
+			Comps::Offset imageOffset { Vect<float>(imageData["offset"]) * static_cast<float>(scale) }; 
 			
-			texPairs.push_back(std::pair<Comps::Texture, Comps::Offset>(copy, imageOffset));
+			texPairs.push_back(std::pair<Comps::Texture, Comps::Offset>(copy, imageOffset)); // Adding the texture and offset to the vector
 		}
 
 		registry.emplace<Comps::MultiTexture>(entity, texPairs);
 
-		Helpers::fillSpots(registry, coords, constants["tiles"]["layouts"][layoutType]["takesUpTiles"]);
+		// Marks the spots that the tile takes up as taken
+		Helpers::fillSpots(registry, xCoord, constants["tiles"]["layouts"][layoutType]["takesUpTiles"]);
 
 		return entity;
 	}
@@ -128,7 +122,31 @@ namespace Factories
 	entt::entity makeLayerGen(entt::registry& registry, const nlohmann::json& constants)
 	{
 		entt::entity entity = registry.create();
-		registry.emplace<Comps::LayerGen>(entity, std::vector<std::vector<bool>>(), constants["game"]["startYPos"].get<uint32_t>());
+		
+		registry.emplace<Comps::LayerGen>(entity, std::vector<std::vector<bool>>(), constants["world"]["startY"].get<uint32_t>());
+		registry.emplace<Tags::LayerGen>(entity);
+
 		return entity;
+	}
+
+	const std::string randomTile(const nlohmann::json& constants)
+	{
+		uint32_t randomNum = rand() % 100 + 1;
+		std::string tileType = "";
+
+		// Choosing a tile
+		for (const auto& typeData : constants["tiles"]["types"].items())
+		{
+			const uint32_t chance = typeData.value()["chance"].get<uint32_t>();
+
+			if (randomNum <= chance)
+			{
+				tileType = typeData.key();
+				break;
+			}
+			else randomNum -= chance;
+		}
+
+		return tileType;
 	}
 }

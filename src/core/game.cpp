@@ -77,11 +77,14 @@ void Game::initObjects()
 	Factories::makeTileTextureStorage(registry, window, constants);
 	Factories::makeLayerGen(registry, constants);
 
-	Helpers::generateTileTextures(registry, window, constants);
+	Helpers::generateTileTextures(registry, window, constants); // Creates all color-shifted tile textures
 	Helpers::setupLayerGen(registry, constants);
 
-	Factories::makeTile(registry, window, constants, { 0, 0 }, { 0, 0 });
-	Factories::makeTile(registry, window, constants, { 0, 0 }, { 80, 0 });
+	for (int i = 0; i < 10; i++)
+	{
+		Helpers::genLayer(registry, window, constants); // Generates the first layer
+		Helpers::startNextLayerGen(registry);
+	}
 }
 
 

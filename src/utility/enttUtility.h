@@ -5,7 +5,7 @@
 namespace Utility
 {
 	template <typename Comp, typename Tag>
-	inline const Comp* getEnttComp(entt::registry& registry)
+	inline Comp* getEnttComp(entt::registry& registry)
 	{
 		const auto view = registry.view<Comp, Tag>();
 		for (const entt::entity entity : view)
