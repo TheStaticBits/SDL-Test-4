@@ -29,8 +29,8 @@ namespace Systems
 	void renderEntity(entt::registry& registry, Window& window, const entt::entity entity, const Comps::Texture& texture, Vect<uint32_t> pos)
 	{
 		// If the entity follows the camera, add camera offset
-		if (registry.all_of<Tags::FollowCamera>(entity))
-			pos -= Utility::getEnttComp<Comps::Offset, Comps::Camera>(registry).offset.cast<uint32_t>(); // Gets camera offset
+		if (!registry.all_of<Tags::LockToFrame>(entity))
+			pos -= Utility::getEnttComp<Comps::Offset, Comps::Camera>(registry)->offset.cast<uint32_t>(); // Gets camera offset
 
 		Systems::drawTex(texture, pos, window);
 	}

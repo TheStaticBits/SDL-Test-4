@@ -27,7 +27,7 @@ namespace Helpers
 		Vect<uint32_t> size(width, height);
 
 		// Creating texture object
-		return Comps::Texture(texture, Vect<uint32_t>(0, 0), size, size * Helpers::getTextureScale(constants));
+		return Comps::Texture{ texture, Vect<uint32_t>(0, 0), size, size * Helpers::getTextureScale(constants) };
 	}
 
 	void destroyTextures(entt::registry& registry)

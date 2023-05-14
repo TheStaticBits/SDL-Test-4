@@ -44,11 +44,10 @@ namespace Factories
 		if (!save.empty())
 			registry.emplace<Comps::Position>(entity, Vect<float>(save["player"]["position"]));
 		else
-			registry.emplace<Comps::Position>(entity, Vect<float>());
+			registry.emplace<Comps::Position>(entity, Vect<float>(constants["player"]["startingPos"]));
 
 		// Tags
 		registry.emplace<Tags::KeyboardInput>(entity);
-		registry.emplace<Tags::FollowCamera>(entity);
 		registry.emplace<Tags::Player>(entity);
 		registry.emplace<Tags::CameraFollow>(entity);
 
@@ -90,7 +89,7 @@ namespace Factories
 		}
 
 		const std::string layoutType = constants["tiles"]["types"][tileType]["layout"].get<std::string>();
-		const Comps::TextureStorage& tileTextures = Utility::getEnttComp<Comps::TextureStorage, Tags::TileTextures>(registry);
+		const Comps::TextureStorage* tileTextures = Utility::getEnttComp<Comps::TextureStorage, Tags::TileTextures>(registry);
 
 		const uint32_t scale = Helpers::getTextureScale(constants);
 
@@ -98,7 +97,7 @@ namespace Factories
 		std::vector<std::pair<Comps::Texture, Comps::Offset>> texPairs;
 		for (const auto& imageData : constants["tiles"]["layouts"][layoutType]["images"]) // Images of the tile
 		{
-			Comps::Texture copy = tileTextures.textures.at(tileType);
+			Comps::Texture copy = tileTextures->textures.at(tileType);
 
 			copy.srcSize = Vect<uint32_t>(imageData["srcRect"][1]);
 			copy.offset =  Vect<uint32_t>(imageData["srcRect"][0]); // src rect offset

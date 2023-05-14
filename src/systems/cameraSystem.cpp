@@ -14,8 +14,8 @@ namespace Systems
 {
 	void updateCameraMovement(entt::registry& registry)
 	{
-		const Vect<float>& followObjPos = Utility::getEnttComp<Comps::Position, Tags::CameraFollow>(registry).pos;
-		const Vect<uint32_t>& followObjSize = Utility::getEnttComp<Comps::Texture, Tags::CameraFollow>(registry).destSize;
+		const Vect<float> followObjPos = Utility::getEnttComp<Comps::Position, Tags::CameraFollow>(registry)->pos;
+		const Vect<uint32_t> followObjSize = Utility::getEnttComp<Comps::Texture, Tags::CameraFollow>(registry)->destSize;
 
 		const auto view = registry.view<Comps::Camera, Comps::Offset>();
 		for (const entt::entity entity : view)

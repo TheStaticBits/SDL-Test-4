@@ -14,15 +14,16 @@
 	"game": {
 		"startYPos": 100,
 		"cameraFollowSpeed": 10,
-		"cameraOffset": [-400, -200],
-		"lockedDirs": [true, false]
+		"cameraOffset": [ -400, -200 ],
+		"lockedDirs": [ true, false ]
 	},
 
 	"player": {
 		"image": "res/gameplay/player.png",
 		"acceleration": 1000,
 		"maxSpeed": 450,
-		"gravity": 20
+		"gravity": 0,
+		"startingPos": [ 0, 0 ]
 	},
 
 	"tiles": {

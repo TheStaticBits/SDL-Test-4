@@ -14,5 +14,5 @@ namespace Comps
 namespace Tags
 {
 	// Objects that are not static and move according to the camera offset
-	struct FollowCamera {};
+	struct LockToFrame {};
 }
