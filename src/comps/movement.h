@@ -26,7 +26,7 @@ namespace Comps
 	// Objects with a max velocity speed
 	struct MaxSpeed
 	{
-		float maxSpeed;
+		Vect<float> speed;
 	};
 
 	// Objects affected by gravity

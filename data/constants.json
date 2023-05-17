@@ -13,16 +13,17 @@
 
 	"game": {
 		"cameraFollowSpeed": 10,
-		"cameraOffset": [ -400, -200 ],
-		"lockedDirs": [ true, false ]
+		"cameraOffset": [-400, -200],
+		"lockedDirs": [true, false]
 	},
 
 	"player": {
 		"image": "res/gameplay/player.png",
 		"acceleration": 1000,
-		"maxSpeed": 450,
-		"gravity": 0,
-		"startingPos": [ 360, 0 ]
+		"maxSpeed": [450, 700],
+		"gravity": 400,
+		"startingPos": [360, 0],
+		"hitbox": { "size": [40, 40], "offset": [0, 0] }
 	},
 
 	"tiles": {
@@ -30,31 +31,37 @@
 		"size": 40,
 
 		"types": {
-			"normal":      { "chance": 50, "color": [ 255, 255, 255 ], "icon": "", "layout": "square"           },
-			"vertDouble":  { "chance": 25, "color": [ 255, 75, 75 ],   "icon": "", "layout": "verticalDouble"   },
-			"horizDouble": { "chance": 25, "color": [ 75, 255, 75 ],   "icon": "", "layout": "horizontalDouble" }
+			"normal":      { "chance": 50, "color": [255, 255, 255], "icon": "", "layout": "square"           },
+			"vertDouble":  { "chance": 25, "color": [255, 75, 75],   "icon": "", "layout": "verticalDouble"   },
+			"horizDouble": { "chance": 25, "color": [75, 255, 75],   "icon": "", "layout": "horizontalDouble" }
 		},
 
 		"layouts": {
 			"square": { 
-				"images": [ { "srcRect": [ [ 0, 0 ], [ 40, 40 ] ], "offset": [ 0, 0 ] } ],
-				"takesUpTiles": [ [ 0, 0 ] ]
+				"images": [ { "srcRect": [ [0, 0], [40, 40] ], "offset": [0, 0] } ],
+				"hitbox": [ { "size": [40, 40], "offset": [0, 0] } ],
+				"takesUpTiles": [ [0, 0] ]
 			},
 			"verticalDouble": {
-				"images": [ { "srcRect": [ [ 0, 0  ], [ 40, 20 ] ], "offset": [ 0, 0  ] },
-							{ "srcRect": [ [ 0, 10 ], [ 40, 20 ] ], "offset": [ 0, 20 ] },
-							{ "srcRect": [ [ 0, 10 ], [ 40, 20 ] ], "offset": [ 0, 40 ] },
-							{ "srcRect": [ [ 0, 20 ], [ 40, 20 ] ], "offset": [ 0, 60 ] } ],
+				"images": [ { "srcRect": [ [0, 0],  [40, 20] ], "offset": [0, 0 ] },
+							{ "srcRect": [ [0, 10], [40, 20] ], "offset": [0, 20] },
+							{ "srcRect": [ [0, 10], [40, 20] ], "offset": [0, 40] },
+							{ "srcRect": [ [0, 20], [40, 20] ], "offset": [0, 60] } ],
 
-				"takesUpTiles": [ [ 0, 0 ], [ 0, 1 ] ]
+				"hitbox": [ { "size": [40, 80], "offset": [0, 0] } ],
+
+				"takesUpTiles": [ [0, 0], [0, 1] ]
+
 			},
 			"horizontalDouble": {
-				"images": [ { "srcRect": [ [ 0,  0 ], [ 20, 40 ] ], "offset": [ 0,  0 ] },
-							{ "srcRect": [ [ 10, 0 ], [ 20, 40 ] ], "offset": [ 20, 0 ] },
-							{ "srcRect": [ [ 10, 0 ], [ 20, 40 ] ], "offset": [ 40, 0 ] },
-							{ "srcRect": [ [ 20, 0 ], [ 20, 40 ] ], "offset": [ 60, 0 ] } ],
+				"images": [ { "srcRect": [ [0, 0],  [20, 40] ], "offset": [0,  0] },
+							{ "srcRect": [ [10, 0], [20, 40] ], "offset": [20, 0] },
+							{ "srcRect": [ [10, 0], [20, 40] ], "offset": [40, 0] },
+							{ "srcRect": [ [20, 0], [20, 40] ], "offset": [60, 0] } ],
+				
+				"hitbox": [ { "size": [80, 40], "offset": [0, 0] } ],
 
-				"takesUpTiles": [ [ 0, 0 ], [ 1, 0 ] ]
+				"takesUpTiles": [ [0, 0], [1, 0] ]
 			}
 		}
 	},

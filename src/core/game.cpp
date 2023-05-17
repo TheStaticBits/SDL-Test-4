@@ -93,11 +93,12 @@ void Game::iteration()
 	window.events();
 	window.updateDeltaTime();
 
-	Systems::updateKeyboardInputVelocities(registry, window);
+	Systems::updateKeyboardInputVels(registry, window);
 	Systems::updateGravity(registry);
 	Systems::updateVelocities(registry, window);
 	Systems::capVelocities(registry);
 	Systems::updateMovement(registry, window);
+	Systems::updateMovWithCollisions(registry, window);
 
 	Systems::updateCameraMovement(registry);
 	Systems::render(registry, window);

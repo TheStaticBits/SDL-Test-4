@@ -40,8 +40,8 @@ namespace Helpers
 		// Destroy all textures in each multitexture component
 		const auto viewMult = registry.view<Comps::MultiTexture>();
 		for (const entt::entity entity : viewMult)
-			for (const std::pair<Comps::Texture, Comps::Offset>& pair : viewMult.get<Comps::MultiTexture>(entity).textures)
-				SDL_DestroyTexture(pair.first.tex);
+			for (const Comps::TexturePart& texs : viewMult.get<Comps::MultiTexture>(entity).textures)
+				SDL_DestroyTexture(texs.texture.tex);
 	}
 
 	void modColor(Comps::Texture& texture, const std::vector<uint8_t>& color)

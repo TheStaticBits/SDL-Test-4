@@ -8,10 +8,16 @@
 
 namespace Comps
 {
+	struct TexturePart
+	{
+		Comps::Offset offset;
+		Comps::Texture texture;
+	};
+
 	// Used for storing multiple textures in one object
+	// each with their own offsets from the base object's position
 	struct MultiTexture
 	{
-		// Texture and offset from object base position
-		std::vector<std::pair<Comps::Texture, Comps::Offset>> textures;
+		std::vector<Comps::TexturePart> textures;
 	};
 }

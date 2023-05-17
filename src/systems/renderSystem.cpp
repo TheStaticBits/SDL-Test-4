@@ -53,10 +53,10 @@ namespace Systems
 			auto [multitexture, position] = view.get<Comps::MultiTexture, Comps::Position>(entity);
 
 			// Iterate through all textures and render them at their offset from the position of the object
-			for (const std::pair<Comps::Texture, Comps::Offset>& texPair : multitexture.textures)
+			for (const Comps::TexturePart& texPart : multitexture.textures)
 			{
-				Vect<uint32_t> pos = (position.pos + texPair.second.offset).cast<uint32_t>(); // applying texture offset to base position
-				Systems::renderEntity(registry, window, entity, texPair.first, pos);
+				Vect<uint32_t> pos = (position.pos + texPart.offset.offset).cast<uint32_t>(); // applying texture offset to base position
+				Systems::renderEntity(registry, window, entity, texPart.texture, pos);
 			}
 		}
 	}

@@ -23,6 +23,7 @@
 #include "comps/offset.h"
 #include "comps/camera.h"
 #include "comps/multitexture.h"
+#include "comps/hitbox.h"
 
 #include "utility/enttUtility.h"
 
@@ -32,14 +33,22 @@ namespace Factories
 	{
 		entt::entity entity = registry.create();
 
+		const uint32_t scale = Helpers::getTextureScale(constants);
+
 		// Comps
 		registry.emplace<Comps::Texture>(entity, Helpers::makeTexture(constants["player"]["image"].get<std::string>(), window, constants));
 
 		registry.emplace<Comps::Movement>(entity, Vect<float>());
 		registry.emplace<Comps::Acceleration>(entity, Vect<float>());
 		registry.emplace<Comps::StaticAcceleration>(entity, Vect<float>(constants["player"]["acceleration"].get<float>(), 0));
-		registry.emplace<Comps::MaxSpeed>(entity, constants["player"]["maxSpeed"].get<float>());
+		registry.emplace<Comps::MaxSpeed>(entity, Vect<float>(constants["player"]["maxSpeed"]));
 		registry.emplace<Comps::Gravity>(entity, constants["player"]["gravity"].get<float>());
+
+		// Hitbox
+		auto& hitbox = registry.emplace<Comps::Hitbox>(entity);
+		const Vect<int32_t> hitboxOffset(constants["player"]["hitbox"]["offset"]);
+		const Vect<uint32_t> hitboxSize(constants["player"]["hitbox"]["size"]);
+		hitbox.boxes.push_back(Comps::Box{ hitboxOffset.cast<float>() * static_cast<float>(scale), hitboxSize * scale });
 
 		if (!save.empty())
 			registry.emplace<Comps::Position>(entity, Vect<float>(save["player"]["position"]));
@@ -50,6 +59,7 @@ namespace Factories
 		registry.emplace<Tags::KeyboardInput>(entity);
 		registry.emplace<Tags::Player>(entity);
 		registry.emplace<Tags::CameraFollow>(entity);
+		registry.emplace<Tags::ChecksCollisions>(entity);
 
 		return entity;
 	}
@@ -85,24 +95,38 @@ namespace Factories
 		const Comps::TextureStorage* tileTextures = Utility::getEnttComp<Comps::TextureStorage, Tags::TileTextures>(registry);
 		const uint32_t scale = Helpers::getTextureScale(constants);
 
-		// Generating individual tile textures for the Multitexture object
-		std::vector<std::pair<Comps::Texture, Comps::Offset>> texPairs;
+
+		auto& multiTex = registry.emplace<Comps::MultiTexture>(entity);
+		// Generating individual tile texture parts for the Multitexture object
 		for (const auto& imageData : constants["tiles"]["layouts"][layoutType]["images"]) // Images of the tile
 		{
-			Comps::Texture copy = tileTextures->textures.at(tileType);
+			Comps::TexturePart texPart;
 
-			copy.srcSize = Vect<uint32_t>(imageData["srcRect"][1]);
-			copy.offset =  Vect<uint32_t>(imageData["srcRect"][0]); // src rect offset
-			copy.destSize = copy.srcSize * scale; // draw size
+			texPart.texture = tileTextures->textures.at(tileType); // Copy texture of the tile type
+
+			texPart.texture.srcSize = Vect<uint32_t>(imageData["srcRect"][1]);
+			texPart.texture.offset =  Vect<uint32_t>(imageData["srcRect"][0]); // src rect offset
+			texPart.texture.destSize = texPart.texture.srcSize * scale; // draw size
 
 			// offset from the position of the object
-			Comps::Offset imageOffset { Vect<float>(imageData["offset"]) * static_cast<float>(scale) }; 
+			texPart.offset = Comps::Offset{ Vect<float>(imageData["offset"]) * static_cast<float>(scale) }; 
 			
-			texPairs.push_back(std::pair<Comps::Texture, Comps::Offset>(copy, imageOffset)); // Adding the texture and offset to the vector
+			multiTex.textures.push_back(texPart); // Adding the texture and offset to the vector
 		}
 
-		registry.emplace<Comps::MultiTexture>(entity, texPairs);
 
+		// Generating hitboxes for Comps::Hitboxes from the constants JSON
+		auto& hitbox = registry.emplace<Comps::Hitbox>(entity);
+		for (const auto& hitboxData : constants["tiles"]["layouts"][layoutType]["hitbox"])
+		{
+			Comps::Box box;
+			box.offset = Comps::Offset{ Vect<float>(hitboxData["offset"]) * static_cast<float>(scale)}; // hitbox position
+			box.size = Vect<uint32_t>(hitboxData["size"]) * scale;
+
+			hitbox.boxes.push_back(box);
+		}
+
+		
 		// Marks the spots that the tile takes up as taken
 		Helpers::fillSpots(registry, xCoord, constants["tiles"]["layouts"][layoutType]["takesUpTiles"]);
 
@@ -123,7 +147,9 @@ namespace Factories
 	{
 		entt::entity entity = registry.create();
 		
-		registry.emplace<Comps::LayerGen>(entity, std::vector<std::vector<bool>>(), constants["world"]["startY"].get<uint32_t>());
+		auto& layerGen = registry.emplace<Comps::LayerGen>(entity);
+		layerGen.yPos = constants["world"]["startY"].get<uint32_t>();
+
 		registry.emplace<Tags::LayerGen>(entity);
 
 		return entity;
