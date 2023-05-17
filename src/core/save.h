@@ -15,10 +15,13 @@ public:
 	void load(const nlohmann::json& constants);
 	void save(const nlohmann::json& constants);
 
-	inline const bool emptySave() const { return empty; } // If there is no save data
-	inline nlohmann::json& getData() { return data; }
+	inline const bool isEmpty() const { return empty; } // If there is no save data
+	inline nlohmann::json& data() { return json; }
+	inline const bool shouldIgnore() const { return ignore; }
 	
 private:
-	nlohmann::json data;
+	nlohmann::json json;
 	bool empty;
+
+	const bool ignore;
 };

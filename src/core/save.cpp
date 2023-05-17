@@ -72,7 +72,7 @@ EM_JS(char*, retrieveCookie, (const char* cookieName), {
 #endif
 
 Save::Save(const nlohmann::json& constants)
-	: empty(false)
+	: empty(false), ignore(constants["save"]["ignore"].get<bool>())
 {
 	load(constants);
 }
@@ -107,7 +107,7 @@ void Save::load(const nlohmann::json& constants)
 	}
 
 	if (!empty)
-		data = nlohmann::json::parse(save);
+		json = nlohmann::json::parse(save);
 #else
 	std::ifstream file(constants["save"]["path"].get<std::string>());
 
@@ -115,18 +115,20 @@ void Save::load(const nlohmann::json& constants)
 		empty = true;
 	else
 	{
-		data = nlohmann::json::parse(file);
+		json = nlohmann::json::parse(file);
 		file.close();
 	}
 #endif
 
 	if (empty)
-		data = nlohmann::json({}); // Creates an empty JSON
+		json = nlohmann::json{}; // Creates an empty JSON
 }
 
 void Save::save(const nlohmann::json& constants)
 {
-	const std::string strJson = data.dump(); // Turn JSON into string
+	if (shouldIgnore()) return;
+
+	const std::string strJson = json.dump(); // Turn JSON into string
 
 #ifdef __EMSCRIPTEN__
 	bool savedStatus = false;

@@ -8,7 +8,8 @@
 
 	"save": {
 		"path": "save/save.json",
-		"cookieName": "save"
+		"cookieName": "save",
+		"ignore": true
 	},
 
 	"game": {
@@ -19,7 +20,7 @@
 
 	"player": {
 		"image": "res/gameplay/player.png",
-		"acceleration": 1000,
+		"acceleration": [1000, 0],
 		"maxSpeed": [450, 700],
 		"gravity": 400,
 		"startingPos": [360, 0],

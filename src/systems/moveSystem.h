@@ -2,6 +2,8 @@
 
 #include <entt/entt.hpp>
 #include <nlohmann/json.hpp>
+#include <tuple>
+#include <optional>
 
 #include "core/window.h"
 #include "comps/position.h"
@@ -32,6 +34,6 @@ namespace Systems
 				    const float collidedPos,  const uint32_t collidedSize);
 
 	// Returns the entity collided with and both hitboxes that collided
-	const std::tuple<entt::entity, Comps::Box, Comps::Box>
+	const std::optional<std::tuple<entt::entity, Comps::Box, Comps::Box>>
 	checkAllCollisions(entt::registry& registry, Comps::Position pos, Comps::Hitbox hitbox, const entt::entity& entity);
 }

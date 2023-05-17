@@ -71,7 +71,7 @@ void Game::initSDL()
 
 void Game::initObjects()
 {
-	Factories::makePlayer(registry, window, constants, save.getData());
+	Factories::makePlayer(registry, window, constants, save);
 	Factories::makeCamera(registry, constants);
 
 	Factories::makeTileTextureStorage(registry, window, constants);
@@ -82,7 +82,7 @@ void Game::initObjects()
 
 	for (int i = 0; i < 10; i++)
 	{
-		Helpers::genLayer(registry, window, constants); // Generates the first layer
+		Helpers::genLayer(registry, window, constants);
 		Helpers::startNextLayerGen(registry);
 	}
 }
@@ -109,7 +109,7 @@ void Game::iteration()
 
 void Game::saveData()
 {
-	Helpers::playerSave(registry, save.getData());
+	Helpers::playerSave(registry, save);
 
 	save.save(constants);
 }

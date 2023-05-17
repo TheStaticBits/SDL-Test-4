@@ -11,6 +11,7 @@
 
 #include "core/window.h"
 #include "comps/texture.h"
+#include "core/save.h"
 
 #include "helpers/textureHelpers.h"
 #include "helpers/mapGenHelpers.h"
@@ -29,7 +30,7 @@
 
 namespace Factories
 {
-	entt::entity makePlayer(entt::registry& registry, Window& window, const nlohmann::json& constants, const nlohmann::json& save)
+	entt::entity makePlayer(entt::registry& registry, Window& window, const nlohmann::json& constants, Save& save)
 	{
 		entt::entity entity = registry.create();
 
@@ -38,9 +39,8 @@ namespace Factories
 		// Comps
 		registry.emplace<Comps::Texture>(entity, Helpers::makeTexture(constants["player"]["image"].get<std::string>(), window, constants));
 
-		registry.emplace<Comps::Movement>(entity, Vect<float>());
-		registry.emplace<Comps::Acceleration>(entity, Vect<float>());
-		registry.emplace<Comps::StaticAcceleration>(entity, Vect<float>(constants["player"]["acceleration"].get<float>(), 0));
+		registry.emplace<Comps::Movement>(entity, Vect<float>(), Vect<float>());
+		registry.emplace<Comps::KeyboardInput>(entity, Vect<float>(constants["player"]["acceleration"]));
 		registry.emplace<Comps::MaxSpeed>(entity, Vect<float>(constants["player"]["maxSpeed"]));
 		registry.emplace<Comps::Gravity>(entity, constants["player"]["gravity"].get<float>());
 
@@ -50,13 +50,12 @@ namespace Factories
 		const Vect<uint32_t> hitboxSize(constants["player"]["hitbox"]["size"]);
 		hitbox.boxes.push_back(Comps::Box{ hitboxOffset.cast<float>() * static_cast<float>(scale), hitboxSize * scale });
 
-		if (!save.empty())
-			registry.emplace<Comps::Position>(entity, Vect<float>(save["player"]["position"]));
+		if (save.isEmpty() || save.shouldIgnore())
+			registry.emplace<Comps::Position>(entity, Vect<float>(constants["player"]["startingPos"])); // Default
 		else
-			registry.emplace<Comps::Position>(entity, Vect<float>(constants["player"]["startingPos"]));
+			registry.emplace<Comps::Position>(entity, Vect<float>(save.data()["player"]["position"])); // Read from save
 
 		// Tags
-		registry.emplace<Tags::KeyboardInput>(entity);
 		registry.emplace<Tags::Player>(entity);
 		registry.emplace<Tags::CameraFollow>(entity);
 		registry.emplace<Tags::ChecksCollisions>(entity);

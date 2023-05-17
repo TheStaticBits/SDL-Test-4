@@ -9,18 +9,13 @@ namespace Comps
 	struct Movement
 	{
 		Vect<float> vel;
-	};
-
-	// Objects with acceleration
-	struct Acceleration
-	{
 		Vect<float> acc;
 	};
 
-	// Used to store the acceleration speed that the Acceleration component will be set to
-	struct StaticAcceleration
+	// Used to store the acceleration speed that the Acceleration component will be set to when a key is pressed
+	struct KeyboardInput
 	{
-		Vect<float> acc;
+		Vect<float> staticAcc;
 	};
 
 	// Objects with a max velocity speed
@@ -34,10 +29,4 @@ namespace Comps
 	{
 		float strength;
 	};
-}
-
-namespace Tags
-{
-	// Movement objects that go off player input
-	struct KeyboardInput {};
 }
