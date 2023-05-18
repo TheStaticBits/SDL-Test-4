@@ -9,6 +9,7 @@
 #include "comps/position.h"
 #include "comps/offset.h"
 #include "comps/camera.h"
+#include "comps/player.h"
 
 #include "utility/enttUtility.h"
 
@@ -26,13 +27,13 @@ namespace Systems
 								   Vect<uint32_t>::toRect(position, texture.destSize));
 	}
 
-	void renderEntity(entt::registry& registry, Window& window, const entt::entity entity, const Comps::Texture& texture, Vect<uint32_t> pos)
+	void renderEntity(entt::registry& registry, Window& window, const entt::entity entity, const Comps::Texture& texture, Vect<float> pos)
 	{
 		// If the entity follows the camera, add camera offset
 		if (!registry.all_of<Tags::LockToFrame>(entity))
-			pos -= Utility::getEnttComp<Comps::Offset, Comps::Camera>(registry)->offset.cast<uint32_t>(); // Gets camera offset
+			pos -= Utility::getEnttComp<Comps::Offset, Comps::Camera>(registry)->offset; // Gets camera offset
 
-		Systems::drawTex(texture, pos, window);
+		Systems::drawTex(texture, pos.cast<uint32_t>(), window);
 	}
 
 	void renderTextures(entt::registry& registry, Window& window)
@@ -41,7 +42,7 @@ namespace Systems
 		for (const entt::entity entity : view)
 		{
 			auto [texture, position] = view.get<Comps::Texture, Comps::Position>(entity);
-			Systems::renderEntity(registry, window, entity, texture, position.pos.cast<uint32_t>());
+			Systems::renderEntity(registry, window, entity, texture, position.pos);
 		}
 	}
 
@@ -55,7 +56,7 @@ namespace Systems
 			// Iterate through all textures and render them at their offset from the position of the object
 			for (const Comps::TexturePart& texPart : multitexture.textures)
 			{
-				Vect<uint32_t> pos = (position.pos + texPart.offset.offset).cast<uint32_t>(); // applying texture offset to base position
+				Vect<float> pos = position.pos + texPart.offset.offset; // applying texture offset to base position
 				Systems::renderEntity(registry, window, entity, texPart.texture, pos);
 			}
 		}

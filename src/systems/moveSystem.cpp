@@ -32,17 +32,25 @@ namespace Systems
 
 	void updateKeyboardAcc(Window& window, const int& keyInputDir, float& vel, float& acc, float& staticAcc)
 	{
-		if (keyInputDir != 0) 
-			acc = staticAcc * keyInputDir; // Accelerate in the direction of the input
-		else if (vel != 0) // No key press but still moving
+		if (staticAcc == 0) 
+			return;
+		
+		else if (keyInputDir != 0)
 		{
-			acc = (vel < 0 ? 1 : -1) * staticAcc; // Slowing down
+			acc = staticAcc * keyInputDir; // Accelerate in the direction of the input
+			return;
+		}
 
-			if (vel <= acc * window.getDeltaTime() && vel >= -acc * window.getDeltaTime())
-			{
-				vel = 0.0f; // Near enough to zero to round to zero
-				acc = 0.0f;
-			}
+		if (vel == 0) 
+			return;
+
+		// No keyboard inputs but still moving
+		acc = (vel < 0 ? 1 : -1) * staticAcc; // Slowing down
+
+		if (vel <= acc * window.getDeltaTime() && vel >= -acc * window.getDeltaTime())
+		{
+			vel = 0.0f; // Near enough to zero to round to zero
+			acc = 0.0f;
 		}
 	}
 
@@ -115,6 +123,8 @@ namespace Systems
 				Systems::moveToEdge(registry, mov.vel.x, pos.pos.x,
 									thisBoxX.offset.offset.x, thisBoxX.size.x,
 									collidedBoxX.offset.offset.x, collidedBoxX.size.x);
+				
+				mov.vel.x = 0;
 			}
 				
 			pos.pos.y += mov.vel.y * window.getDeltaTime();
@@ -124,16 +134,17 @@ namespace Systems
 			if (collisionCheckY.has_value())
 			{
 				const auto [collisionEntityY, thisBoxY, collidedBoxY] = collisionCheckY.value();
-				
-				//if (mov.vel.y > 0)
-				//{
-				//	registry.destroy(collisionEntityY);
-				//	acc.acc.y = -200;
-				//}
 
 				Systems::moveToEdge(registry, mov.vel.y, pos.pos.y,
 									thisBoxY.offset.offset.y, thisBoxY.size.y,
 									collidedBoxY.offset.offset.y, collidedBoxY.size.y);
+
+				if (mov.vel.y > 0) // Touched tile while moving down
+				{
+					registry.destroy(collisionEntityY);
+					mov.vel.y = -600;
+				}
+				else mov.vel.y = 0; // Touched tile while moving up
 			}
 		}
 	}
@@ -153,7 +164,6 @@ namespace Systems
 
 		// Moving to the edge of the hitbox
 		pos += distance;
-		vel = 0;
 	}
 
 	// Returns the first element that is found to collide with the entity, and its position & size 

@@ -100,7 +100,7 @@ void Game::iteration()
 	Systems::updateMovement(registry, window);
 	Systems::updateMovWithCollisions(registry, window);
 
-	Systems::updateCameraMovement(registry);
+	Systems::updateCameraMovement(registry, window);
 	Systems::render(registry, window);
 
 	window.update();

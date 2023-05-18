@@ -12,19 +12,20 @@
 		"ignore": true
 	},
 
-	"game": {
-		"cameraFollowSpeed": 10,
-		"cameraOffset": [-400, -200],
+	"camera": {
+		"followSpeed": 5,
+		"offset": [-400, -200],
 		"lockedDirs": [true, false]
 	},
 
 	"player": {
 		"image": "res/gameplay/player.png",
 		"acceleration": [1000, 0],
-		"maxSpeed": [450, 700],
-		"gravity": 400,
+		"maxSpeed": [1400, 100000],
+		"gravity": 1200,
 		"startingPos": [360, 0],
-		"hitbox": { "size": [40, 40], "offset": [0, 0] }
+		"hitbox": { "size": [40, 40], "offset": [0, 0] },
+		"bounceVel": -1000
 	},
 
 	"tiles": {

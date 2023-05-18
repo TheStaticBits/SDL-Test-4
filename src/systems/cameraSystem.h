@@ -2,9 +2,9 @@
 
 #include <entt/entt.hpp>
 
-#include "utility/vect.h"
+#include "core/window.h"
 
 namespace Systems
 {
-	void updateCameraMovement(entt::registry& registry);
+	void updateCameraMovement(entt::registry& registry, Window& window);
 }

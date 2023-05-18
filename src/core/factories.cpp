@@ -68,9 +68,9 @@ namespace Factories
 		entt::entity entity = registry.create();
 		
 		registry.emplace<Comps::Offset>(entity, Vect<float>());
-		registry.emplace<Comps::Camera>(entity, constants["game"]["cameraFollowSpeed"].get<float>(), 
-												Vect<float>(constants["game"]["cameraOffset"]), 
-												Vect<bool>(constants["game"]["lockedDirs"]));
+		registry.emplace<Comps::Camera>(entity, constants["camera"]["followSpeed"].get<float>(), 
+												Vect<float>(constants["camera"]["offset"]), 
+												Vect<bool>(constants["camera"]["lockedDirs"]));
 		
 		return entity;
 	}
@@ -156,7 +156,7 @@ namespace Factories
 
 	const std::string randomTile(const nlohmann::json& constants)
 	{
-		uint32_t randomNum = rand() % 100 + 1;
+		uint32_t randomNum = rand() % 100 + 1; // 1 - 100
 		std::string tileType = "";
 
 		// Choosing a tile
