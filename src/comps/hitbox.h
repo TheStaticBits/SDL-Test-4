@@ -21,6 +21,6 @@ namespace Comps
 	// Callbacks for when a collision occurs on both x and y axis
 	struct Collision
 	{
-		Vect<std::function<void(entt::registry& registry, entt::entity entity, entt::entity collidedEntity, float& velocity)>> callbacks;
+		Vect<std::function<void(entt::registry& registry, entt::entity entity, entt::entity collidedEntity)>> callbacks;
 	};
 }

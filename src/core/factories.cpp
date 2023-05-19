@@ -60,7 +60,9 @@ namespace Factories
 		Comps::Collision& col = registry.emplace<Comps::Collision>(entity);
 
 		// Callback for when player collides with tile on y axis
-		col.callbacks.y = [](entt::registry& registry, entt::entity entity, entt::entity collidedEntity, float& velocity) {
+		col.callbacks.y = [](entt::registry& registry, entt::entity entity, entt::entity collidedEntity) {
+			float& velocity = registry.get<Comps::Movement>(entity).vel.y;
+
 			if (velocity > 0) // Touched tile while moving down
 			{
 				registry.destroy(collidedEntity);
@@ -70,8 +72,8 @@ namespace Factories
 		};
 
 		// X axis collision callback
-		col.callbacks.x = [](entt::registry& registry, entt::entity entity, entt::entity collidedEntity, float& velocity) {
-			velocity = 0;
+		col.callbacks.x = [](entt::registry& registry, entt::entity entity, entt::entity collidedEntity) {
+			registry.get<Comps::Movement>(entity).vel.x = 0;
 		};
 
 

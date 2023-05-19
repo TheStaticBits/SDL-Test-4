@@ -121,7 +121,7 @@ namespace Systems
 									thisBoxX.offset.offset.x, thisBoxX.size.x,
 									collidedBoxX.offset.offset.x, collidedBoxX.size.x);
 				
-				col.callbacks.x(registry, entity, collisionEntityX, mov.vel.x);
+				col.callbacks.x(registry, entity, collisionEntityX);
 			}
 				
 			pos.pos.y += mov.vel.y * window.getDeltaTime();
@@ -136,7 +136,7 @@ namespace Systems
 									thisBoxY.offset.offset.y, thisBoxY.size.y,
 									collidedBoxY.offset.offset.y, collidedBoxY.size.y);
 
-				col.callbacks.y(registry, entity, collisionEntityY, mov.vel.y);
+				col.callbacks.y(registry, entity, collisionEntityY);
 			}
 		}
 	}
