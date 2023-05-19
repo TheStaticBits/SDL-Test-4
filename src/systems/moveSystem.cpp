@@ -150,7 +150,7 @@ namespace Systems
 		float distance = 0.0f;
 
 		if (vel < 0) // Moving up/left, find distance between bottom of collided and top of parent box
-			distance = parentPos - (collidedPos + static_cast<float>(collidedSize));
+			distance = (collidedPos + static_cast<float>(collidedSize)) - parentPos;
 		else if (vel > 0) // Moving down/right, distance between bottom of parent and top of collided
 			distance = collidedPos - (parentPos + static_cast<float>(parentSize));
 
