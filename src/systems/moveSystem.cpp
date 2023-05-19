@@ -93,12 +93,9 @@ namespace Systems
 
 	void updateMovement(entt::registry& registry, Window& window)
 	{
-		const auto view = registry.view<Comps::Movement, Comps::Position>();
+		const auto view = registry.view<Comps::Movement, Comps::Position>(entt::exclude<Comps::Collision>);
 		for (const entt::entity entity : view)
 		{
-			if (registry.all_of<Tags::ChecksCollisions>(entity))
-				continue;
-
 			auto [movement, position] = view.get<Comps::Movement, Comps::Position>(entity);
 			position.pos += movement.vel * window.getDeltaTime();
 		}
@@ -107,10 +104,10 @@ namespace Systems
 	// Updates objects which check for collision
 	void updateMovWithCollisions(entt::registry& registry, Window& window)
 	{
-		const auto view = registry.view<Comps::Movement, Comps::Position, Comps::Hitbox, Tags::ChecksCollisions>();
+		const auto view = registry.view<Comps::Movement, Comps::Position, Comps::Hitbox, Comps::Collision>();
 		for (const entt::entity entity : view)
 		{
-			auto [mov, pos, hitbox] = view.get<Comps::Movement, Comps::Position, Comps::Hitbox>(entity);
+			auto [mov, pos, hitbox, col] = view.get<Comps::Movement, Comps::Position, Comps::Hitbox, Comps::Collision>(entity);
 
 			pos.pos.x += mov.vel.x * window.getDeltaTime();
 
@@ -124,7 +121,7 @@ namespace Systems
 									thisBoxX.offset.offset.x, thisBoxX.size.x,
 									collidedBoxX.offset.offset.x, collidedBoxX.size.x);
 				
-				mov.vel.x = 0;
+				col.callbacks.x(registry, entity, collisionEntityX, mov.vel.x);
 			}
 				
 			pos.pos.y += mov.vel.y * window.getDeltaTime();
@@ -139,12 +136,7 @@ namespace Systems
 									thisBoxY.offset.offset.y, thisBoxY.size.y,
 									collidedBoxY.offset.offset.y, collidedBoxY.size.y);
 
-				if (mov.vel.y > 0) // Touched tile while moving down
-				{
-					registry.destroy(collisionEntityY);
-					mov.vel.y = -600;
-				}
-				else mov.vel.y = 0; // Touched tile while moving up
+				col.callbacks.y(registry, entity, collisionEntityY, mov.vel.y);
 			}
 		}
 	}

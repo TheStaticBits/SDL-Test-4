@@ -12,7 +12,7 @@ namespace Helpers
 {
 	void playerSave(entt::registry& registry, Save& save)
 	{
-		const auto view = registry.view<Comps::Position, Tags::Player>();
+		const auto view = registry.view<Comps::Position, Comps::Player>();
 		for (const auto entity : view)
 		{
 			auto& position = view.get<Comps::Position>(entity);

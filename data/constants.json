@@ -25,7 +25,7 @@
 		"gravity": 1200,
 		"startingPos": [360, 0],
 		"hitbox": { "size": [40, 40], "offset": [0, 0] },
-		"bounceVel": -1000
+		"bounceVel": -600
 	},
 
 	"tiles": {

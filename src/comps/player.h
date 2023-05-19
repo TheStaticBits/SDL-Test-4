@@ -1,7 +1,9 @@
 #pragma once
 
-namespace Tags
+namespace Comps
 {
 	// Tag that refers to the single player entity
-	struct Player {};
+	struct Player {
+		float bounceVelocity;
+	};
 }

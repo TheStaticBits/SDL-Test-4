@@ -43,6 +43,7 @@ namespace Factories
 		registry.emplace<Comps::KeyboardInput>(entity, Vect<float>(constants["player"]["acceleration"]));
 		registry.emplace<Comps::MaxSpeed>(entity, Vect<float>(constants["player"]["maxSpeed"]));
 		registry.emplace<Comps::Gravity>(entity, constants["player"]["gravity"].get<float>());
+		registry.emplace<Comps::Player>(entity, constants["player"]["bounceVel"].get<float>());
 
 		// Hitbox
 		auto& hitbox = registry.emplace<Comps::Hitbox>(entity);
@@ -55,10 +56,27 @@ namespace Factories
 		else
 			registry.emplace<Comps::Position>(entity, Vect<float>(save.data()["player"]["position"])); // Read from save
 
+
+		Comps::Collision& col = registry.emplace<Comps::Collision>(entity);
+
+		// Callback for when player collides with tile on y axis
+		col.callbacks.y = [](entt::registry& registry, entt::entity entity, entt::entity collidedEntity, float& velocity) {
+			if (velocity > 0) // Touched tile while moving down
+			{
+				registry.destroy(collidedEntity);
+				velocity = registry.get<Comps::Player>(entity).bounceVelocity;
+			}
+			else velocity = 0; // Touched tile while moving up
+		};
+
+		// X axis collision callback
+		col.callbacks.x = [](entt::registry& registry, entt::entity entity, entt::entity collidedEntity, float& velocity) {
+			velocity = 0;
+		};
+
+
 		// Tags
-		registry.emplace<Tags::Player>(entity);
 		registry.emplace<Tags::CameraFollow>(entity);
-		registry.emplace<Tags::ChecksCollisions>(entity);
 
 		return entity;
 	}
