@@ -30,8 +30,6 @@ namespace Helpers
 		{
 			auto [mov, pos, player, tex] = view.get<Comps::Movement, Comps::Position, Comps::Player, Comps::Texture>(entity);
 
-			std::cout << mov.vel.x << std::endl;
-
 			if (pos.pos.x < player.boundaries.x) // Left boundary
 			{
 				pos.pos.x = player.boundaries.x;

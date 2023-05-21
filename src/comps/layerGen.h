@@ -11,6 +11,7 @@ namespace Comps
 		std::vector<std::vector<bool>> layers;
 
 		uint32_t yPos;
+		float windowHeight;
 	};
 }
 

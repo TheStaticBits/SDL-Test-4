@@ -33,6 +33,9 @@ namespace Systems
 		if (!registry.all_of<Tags::LockToFrame>(entity))
 			pos -= Utility::getEnttComp<Comps::Offset, Comps::Camera>(registry)->offset; // Gets camera offset
 
+		//if (registry.all_of<Comps::Player>(entity))
+		//	std::cout << pos.xCast<uint32_t>() << std::endl;
+
 		Systems::drawTex(texture, pos.cast<uint32_t>(), window);
 	}
 

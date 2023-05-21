@@ -169,6 +169,7 @@ namespace Factories
 		
 		auto& layerGen = registry.emplace<Comps::LayerGen>(entity);
 		layerGen.yPos = constants["world"]["startY"].get<uint32_t>();
+		layerGen.windowHeight = constants["display"]["size"][1].get<float>();
 
 		registry.emplace<Tags::LayerGen>(entity);
 

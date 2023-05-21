@@ -229,6 +229,7 @@
     <ClCompile Include="src\core\save.cpp" />
     <ClCompile Include="src\core\factories.cpp" />
     <ClCompile Include="src\core\window.cpp" />
+    <ClCompile Include="src\systems\mapGenSystem.cpp" />
     <ClCompile Include="src\systems\moveSystem.cpp" />
     <ClCompile Include="src\systems\renderSystem.cpp" />
   </ItemGroup>
@@ -252,6 +253,7 @@
     <ClInclude Include="src\helpers\textureHelpers.h" />
     <ClInclude Include="src\helpers\mapGenHelpers.h" />
     <ClInclude Include="src\helpers\tileTexHelpers.h" />
+    <ClInclude Include="src\systems\mapGenSystem.h" />
     <ClInclude Include="src\systems\moveSystem.h" />
     <ClInclude Include="src\systems\renderSystem.h" />
     <ClInclude Include="src\utility\collision.h" />

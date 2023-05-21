@@ -17,6 +17,7 @@
     <ClCompile Include="src\helpers\mapGenHelpers.cpp" />
     <ClCompile Include="src\helpers\tileTexHelpers.cpp" />
     <ClCompile Include="src\systems\cameraSystem.cpp" />
+    <ClCompile Include="src\systems\mapGenSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\game.h" />
@@ -44,6 +45,7 @@
     <ClInclude Include="src\comps\texStorage.h" />
     <ClInclude Include="src\comps\hitbox.h" />
     <ClInclude Include="src\utility\collision.h" />
+    <ClInclude Include="src\systems\mapGenSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\gameplay\tile.png" />

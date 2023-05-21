@@ -6,7 +6,7 @@ namespace Comps
 	struct Camera 
 	{
 		float followSpeed;
-		Vect<float> offset;
+		Vect<float> offset; // Const offset from the object being followed
 		Vect<bool> lockedDirs;
 	};
 }

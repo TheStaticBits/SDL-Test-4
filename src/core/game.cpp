@@ -23,6 +23,7 @@
 #include "systems/moveSystem.h"
 #include "systems/renderSystem.h"
 #include "systems/cameraSystem.h"
+#include "systems/mapGenSystem.h"
 
 #ifdef __EMSCRIPTEN__
 #include "emscripten.h"
@@ -80,11 +81,7 @@ void Game::initObjects()
 	Helpers::generateTileTextures(registry, window, constants); // Creates all color-shifted tile textures
 	Helpers::setupLayerGen(registry, constants);
 
-	for (int i = 0; i < 10; i++)
-	{
-		Helpers::genLayer(registry, window, constants);
-		Helpers::startNextLayerGen(registry);
-	}
+	Systems::updateMapGeneration(registry, window, constants); // Fill the window with layers
 }
 
 
@@ -103,7 +100,10 @@ void Game::iteration()
 	Helpers::updatePlayerBoundaries(registry);
 
 	Systems::updateCameraMovement(registry, window);
+	Systems::updateMapGeneration(registry, window, constants);
+
 	Systems::render(registry, window);
+
 
 	window.update();
 }
