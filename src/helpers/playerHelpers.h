@@ -8,4 +8,6 @@
 namespace Helpers
 {
 	void playerSave(entt::registry& registry, Save& save);
+
+	void updatePlayerBoundaries(entt::registry& registry);
 }

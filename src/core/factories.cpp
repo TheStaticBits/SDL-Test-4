@@ -43,7 +43,8 @@ namespace Factories
 		registry.emplace<Comps::KeyboardInput>(entity, Vect<float>(constants["player"]["acceleration"]));
 		registry.emplace<Comps::MaxSpeed>(entity, Vect<float>(constants["player"]["maxSpeed"]));
 		registry.emplace<Comps::Gravity>(entity, constants["player"]["gravity"].get<float>());
-		registry.emplace<Comps::Player>(entity, constants["player"]["bounceVel"].get<float>());
+		registry.emplace<Comps::Player>(entity, constants["player"]["bounceVel"].get<float>(),
+												Vect<float>(constants["player"]["boundaries"]) * static_cast<float>(scale));
 
 		// Hitbox
 		auto& hitbox = registry.emplace<Comps::Hitbox>(entity);

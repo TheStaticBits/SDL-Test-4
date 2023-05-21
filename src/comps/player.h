@@ -2,8 +2,9 @@
 
 namespace Comps
 {
-	// Tag that refers to the single player entity
+	// Player-specific components
 	struct Player {
 		float bounceVelocity;
+		Vect<float> boundaries;
 	};
 }

@@ -13,7 +13,7 @@
 	},
 
 	"camera": {
-		"followSpeed": 5,
+		"followSpeed": 3,
 		"offset": [-400, -200],
 		"lockedDirs": [true, false]
 	},
@@ -21,11 +21,12 @@
 	"player": {
 		"image": "res/gameplay/player.png",
 		"acceleration": [1000, 0],
-		"maxSpeed": [1400, 100000],
+		"maxSpeed": [700, 700],
 		"gravity": 1200,
 		"startingPos": [360, 0],
 		"hitbox": { "size": [40, 40], "offset": [0, 0] },
-		"bounceVel": -600
+		"bounceVel": -600,
+		"boundaries": [0, 400]
 	},
 
 	"tiles": {
