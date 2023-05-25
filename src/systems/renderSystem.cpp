@@ -12,6 +12,7 @@
 #include "comps/player.h"
 
 #include "utility/enttUtility.h"
+#include "utility/collision.h"
 
 namespace Systems
 {
@@ -21,10 +22,15 @@ namespace Systems
 		renderMultitextures(registry, window);
 	}
 
-	void drawTex(const Comps::Texture& texture, const Vect<uint32_t>& position, Window& window)
+	void drawTex(const Comps::Texture& texture, const Vect<int32_t>& position, Window& window)
 	{
+		// check if texture is onscreen
+		if (!Utility::collision<int32_t>({0, 0},   window.getSize().cast<int32_t>(),
+										position, texture.destSize.cast<int32_t>()))
+			return;
+
 		window.render(texture.tex, Vect<uint32_t>::toRect(texture.offset, texture.srcSize),
-								   Vect<uint32_t>::toRect(position, texture.destSize));
+								   Vect<int32_t>::toRect(position, texture.destSize.cast<int32_t>()));
 	}
 
 	void renderEntity(entt::registry& registry, Window& window, const entt::entity entity, const Comps::Texture& texture, Vect<float> pos)
@@ -34,9 +40,9 @@ namespace Systems
 			pos -= Utility::getEnttComp<Comps::Offset, Comps::Camera>(registry)->offset; // Gets camera offset
 
 		//if (registry.all_of<Comps::Player>(entity))
-		//	std::cout << pos.xCast<uint32_t>() << std::endl;
+		//	std::cout << pos.xCast<int32_t>() << std::endl;
 
-		Systems::drawTex(texture, pos.cast<uint32_t>(), window);
+		Systems::drawTex(texture, pos.cast<int32_t>(), window);
 	}
 
 	void renderTextures(entt::registry& registry, Window& window)

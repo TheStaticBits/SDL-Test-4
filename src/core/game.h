@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <unordered_map>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -29,6 +30,8 @@ public:
 private:
 	const nlohmann::json constants;
 	entt::registry registry;
+
+	std::unordered_map<std::string, entt::entity> singleEntities;
 
 	Save save;
 	Window window;

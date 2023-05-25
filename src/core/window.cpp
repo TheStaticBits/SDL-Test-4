@@ -55,8 +55,9 @@ void Window::update()
 
 void Window::updateDeltaTime()
 {
-	std::chrono::high_resolution_clock::time_point currentTime = std::chrono::high_resolution_clock::now();
+	const auto currentTime = std::chrono::high_resolution_clock::now();
 	deltaTime = std::chrono::duration_cast<std::chrono::duration<float>>(currentTime - lastTime).count(); // Delta time in seconds
+	std::cout << 1/deltaTime << std::endl;
 	lastTime = currentTime;
 }
 

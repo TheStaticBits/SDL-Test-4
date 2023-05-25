@@ -15,7 +15,7 @@ namespace Systems
 		Comps::LayerGen* layerGen = Helpers::getLayerGen(registry);
 
 		// Generate until the window is filled with layers
-		while (layerGen->yPos - cameraYOffset < layerGen->windowHeight)
+		while (layerGen->yPos - cameraYOffset < window.getSize().y)
 		{
 			Helpers::genLayer(registry, window, constants);
 			Helpers::startNextLayerGen(registry);

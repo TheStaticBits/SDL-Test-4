@@ -47,7 +47,7 @@ const char* emscriptenSave(int eventType, const void* reserved, void* gamePtr)
 
 Game::Game()
 	: constants(nlohmann::json::parse(std::ifstream("data/constants.json"))),
-	  registry(), save(constants), window(constants)
+	  registry(), singleEntities(), save(constants), window(constants)
 {
 
 }
@@ -72,11 +72,11 @@ void Game::initSDL()
 
 void Game::initObjects()
 {
-	Factories::makePlayer(registry, window, constants, save);
-	Factories::makeCamera(registry, constants);
+	singleEntities["player"] = Factories::makePlayer(registry, window, constants, save);
+	singleEntities["camera"] = Factories::makeCamera(registry, constants);
 
-	Factories::makeTileTextureStorage(registry, window, constants);
-	Factories::makeLayerGen(registry, constants);
+	singleEntities["texStorage"] = Factories::makeTileTextureStorage(registry, window, constants);
+	singleEntities["layerGen"] = Factories::makeLayerGen(registry, constants);
 
 	Helpers::generateTileTextures(registry, window, constants); // Creates all color-shifted tile textures
 	Helpers::setupLayerGen(registry, constants);
@@ -90,7 +90,9 @@ void Game::iteration()
 	window.events();
 	window.updateDeltaTime();
 
+	// Movement
 	Systems::updateKeyboardInputVels(registry, window);
+	
 	Systems::updateGravity(registry);
 	Systems::updateVelocities(registry, window);
 	Systems::capVelocities(registry);

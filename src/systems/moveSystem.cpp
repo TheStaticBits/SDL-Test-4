@@ -164,12 +164,16 @@ namespace Systems
 	checkAllCollisions(entt::registry& registry, Comps::Position pos, Comps::Hitbox hitbox, const entt::entity& entity)
 	{
 		const auto view = registry.view<Comps::Position, Comps::Hitbox>();
+
+		uint32_t amountChecked = 0;
+
 		for (const entt::entity checkingEntity : view)
 		{
 			if (checkingEntity == entity)
 				continue;
 
 			const auto [checkingPos, checkingHitbox] = view.get<Comps::Position, Comps::Hitbox>(checkingEntity);
+
 
 			// For each box in the object's hitbox, check it with all tile hitboxes
 			// Can be optimized much more...
